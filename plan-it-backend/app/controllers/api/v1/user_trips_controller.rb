@@ -1,4 +1,4 @@
-class UserTripsController < ApplicationController
+class Api::V1::UserTripsController < ApplicationController
   def index
     user_trips = UserTrip.all
     render json: user_trips

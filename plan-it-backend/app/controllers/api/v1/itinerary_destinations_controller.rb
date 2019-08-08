@@ -1,4 +1,4 @@
-class ItineraryDestinationsController < ApplicationController
+class Api::V1::ItineraryDestinationsController < ApplicationController
   def index
     itinerary_destinations = ItineraryDestination.all
     render json: itinerary_destinations

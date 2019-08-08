@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :comments
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
@@ -8,6 +7,7 @@ Rails.application.routes.draw do
       resources :user_trips
       resources :todos
       resources :expenses
+      resources :comments
       resources :itineraries
       resources :destinations
       resources :itinerary_destinations

@@ -1,4 +1,5 @@
 class UserTrip < ApplicationRecord
-  belongs_to :user_id
-  belongs_to :trip_id
+  has_many :itineraries
+  belongs_to :user
+  belongs_to :trip
 end
