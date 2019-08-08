@@ -3,6 +3,7 @@ import './App.css'
 import { connect } from 'react-redux'
 import MainContainer from './containers/MainContainer'
 import { setTrips } from './actions/tripActions'
+import { setItineraries } from './actions/itineraryActions'
 
 class App extends React.Component {
   state = {
@@ -18,6 +19,7 @@ class App extends React.Component {
     .then(res => res.json())
     .then(user => {
       this.props.setTrips(user.trips)
+      this.props.setItineraries(user.itineraries)
     })
   }
 
@@ -33,8 +35,9 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    trips: state.trips
+    trips: state.trips,
+    itineraries: state.itineraries
   }
 }
 
-export default connect(mapStateToProps, {setTrips: setTrips})(App)
+export default connect(mapStateToProps, {setTrips: setTrips, setItineraries: setItineraries})(App)

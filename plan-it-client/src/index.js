@@ -4,13 +4,15 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import userReducer from './reducers/userReducer'
 import tripReducer from './reducers/tripReducer'
+import itineraryReducer from './reducers/itineraryReducer'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 const rootReducer = combineReducers({
   users: userReducer,
-  trips: tripReducer
+  trips: tripReducer,
+  itineraries: itineraryReducer
 })
 
 const store = createStore(rootReducer,

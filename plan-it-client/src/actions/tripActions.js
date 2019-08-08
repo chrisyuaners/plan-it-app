@@ -1,10 +1,3 @@
-function addTrip(newTrip){
-  return {
-    type: 'ADD_TRIP',
-    newTrip: newTrip
-  }
-}
-
 function setTrips(trips){
   return {
     type: 'SET_TRIPS',
@@ -12,8 +5,14 @@ function setTrips(trips){
   }
 }
 
+function addTrip(newTrip){
+  return {
+    type: 'ADD_TRIP',
+    newTrip: newTrip
+  }
+}
 
 export {
-  addTrip,
-  setTrips
+  setTrips,
+  addTrip
 }
