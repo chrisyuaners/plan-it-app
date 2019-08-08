@@ -32,12 +32,4 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    trips: state.trips,
-    itineraries: state.itineraries
-  }
-}
-
-export default connect(mapStateToProps, {setTrips: setTrips, setItineraries: setItineraries})(App)
+export default connect(null, {setTrips: setTrips, setItineraries: setItineraries})(App)

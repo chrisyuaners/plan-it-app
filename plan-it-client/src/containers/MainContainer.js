@@ -6,7 +6,7 @@ class MainContainer extends React.Component {
   render() {
     return (
       <div>
-        <TripContainer trips={this.props.trips} />
+        <TripContainer />
       </div>
     )
   }
