@@ -1,9 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import TripListItem from '../components/TripListItem'
+import { List } from 'antd'
 
 function TripList(props){
   function renderTrips(){
-    return null
+    return (
+      <List
+        itemLayout="horizontal"
+        dataSource={props.trips}
+        renderItem={trip => (
+          <TripListItem key={trip.id} trip={trip} />
+        )}
+      />
+    )
   }
 
   return (
@@ -14,7 +24,6 @@ function TripList(props){
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     trips: state.trips
   }
