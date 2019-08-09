@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import TripListItem from '../components/TripListItem'
 import { List } from 'antd'
 
-function TripList(props){
-  function renderTrips(){
+function TripList(props) {
+  function renderTrips() {
     return (
       <List
         itemLayout="horizontal"
         dataSource={props.trips}
         renderItem={trip => (
-          <TripListItem key={trip.id} trip={trip} />
+          <TripListItem key={trip.id} trip={trip} selectTrip={props.selectTrip} />
         )}
       />
     )
