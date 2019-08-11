@@ -14,10 +14,11 @@ function fetchTodos(userId) {
   }
 }
 
-function addTodo(todo) {
+function addTodo(tripId, newTodo) {
   return {
     type: 'ADD_TODO',
-    todo: todo
+    tripId: tripId,
+    newTodo: newTodo
   }
 }
 

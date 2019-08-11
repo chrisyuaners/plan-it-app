@@ -1,21 +1,23 @@
 import React from 'react'
 import TodoListItem from '../components/TodoListItem'
+import TodoForm from '../components/TodoForm'
 import { connect } from 'react-redux'
 import { List, Card } from 'antd'
 
 function TodoList(props) {
-  const trip = props.trips.filter(trip => trip.id === props.selectedTrip)[0]
+  const tripTodos = props.todos.filter(todo => todo.tripId === props.selectedTrip)[0]
 
   function renderTodos() {
     return (
       <Card title="Todos" style={{ width: 350 }}>
         <List
           itemLayout="horizontal"
-          dataSource={trip.todos}
+          dataSource={tripTodos.todos}
           renderItem={todo => (
             <TodoListItem key={todo.id} todo={todo} />
           )}
         />
+        <TodoForm tripId={props.selectedTrip} />
       </Card>
     )
   }
@@ -29,7 +31,7 @@ function TodoList(props) {
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.trips
+    todos: state.todos
   }
 }
 
