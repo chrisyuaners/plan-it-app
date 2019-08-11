@@ -1,8 +1,8 @@
 const defaultState = []
 
-function tripReducer(state=defaultState, action) {
+function tripReducer(state = defaultState, action) {
   switch(action.type) {
-    case 'SET_TRIPS':
+    case 'FETCH_TRIPS':
       return action.trips
     case 'ADD_TRIP':
       return [...state, action.newTrip]

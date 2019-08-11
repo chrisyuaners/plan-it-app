@@ -12,7 +12,7 @@ function ExpenseListItem(props) {
     <List.Item>
       <List.Item.Meta
         title={props.expense.item}
-        description={numberFormat(props.expense.cost)}
+        description={`${numberFormat(props.expense.cost)} x ${props.expense.count}`}
       />
     </List.Item>
   )

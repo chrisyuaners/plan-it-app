@@ -1,11 +1,9 @@
-const defaultState = {
-  userId: null
-}
+const defaultState = null
 
 function userReducer(state=defaultState, action) {
   switch(action.type) {
-    case 'SET_USER':
-      return {userId: action.payload}
+    case 'FETCH_USER':
+      return action.currentUser
     default:
       return state
   }

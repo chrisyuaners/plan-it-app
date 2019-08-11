@@ -4,6 +4,7 @@ import TripCard from '../components/TripCard'
 import UserList from './UserList'
 import ExpenseList from './ExpenseList'
 import TodoList from './TodoList'
+import CommentList from './CommentList'
 import { Layout, Empty, Button } from 'antd'
 
 class TripContainer extends React.Component {
@@ -31,6 +32,9 @@ class TripContainer extends React.Component {
         </div>
         <div>
           <TodoList selectedTrip={this.state.selectedTrip} />
+        </div>
+        <div>
+          <CommentList selectedTrip={this.state.selectedTrip} />
         </div>
       </div>
     )
@@ -63,7 +67,7 @@ class TripContainer extends React.Component {
     return (
       <div>
         <Layout style={{ minHeight: '100vh' }}>
-          <Sider width={300} style={{ background: '#fff' }}>
+          <Sider width={250} style={{ background: '#fff' }}>
             <TripList selectTrip={this.selectTrip} />
           </Sider>
           <Content height={1000}>

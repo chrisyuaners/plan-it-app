@@ -2,8 +2,12 @@ import React from 'react'
 import './App.css'
 import { connect } from 'react-redux'
 import MainContainer from './containers/MainContainer'
-import { setTrips } from './actions/tripActions'
-import { setItineraries } from './actions/itineraryActions'
+import { fetchTrips } from './actions/tripActions'
+import { fetchUser } from './actions/userActions'
+import { fetchItineraries } from './actions/itineraryActions'
+import { fetchTodos } from './actions/todoActions'
+import { fetchComments } from './actions/commentActions'
+import { fetchExpenses } from './actions/expenseActions'
 
 class App extends React.Component {
   state = {
@@ -11,16 +15,12 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    this.fetchUser()
-  }
-
-  fetchUser() {
-    fetch(`http://localhost:3000/api/v1/users/${this.state.userId}`)
-    .then(res => res.json())
-    .then(user => {
-      this.props.setTrips(user.trips)
-      this.props.setItineraries(user.itineraries)
-    })
+    this.props.fetchUser(this.state.userId)
+    this.props.fetchTrips(this.state.userId)
+    this.props.fetchItineraries(this.state.userId)
+    this.props.fetchTodos(this.state.userId)
+    this.props.fetchComments(this.state.userId)
+    this.props.fetchExpenses(this.state.userId)
   }
 
   render() {
@@ -32,4 +32,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {setTrips: setTrips, setItineraries: setItineraries})(App)
+export default connect(null, {fetchTrips: fetchTrips, fetchItineraries: fetchItineraries, fetchUser: fetchUser, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses})(App)

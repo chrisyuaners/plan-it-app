@@ -5,6 +5,12 @@ import { List, Card } from 'antd'
 
 function ExpenseList(props) {
   const trip = props.trips.filter(trip => trip.id === props.selectedTrip)[0]
+  const reducer = (total, expense) => total + expense
+  const numberFormat = (value) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(value)
 
   function renderExpenses() {
     return (
@@ -16,6 +22,7 @@ function ExpenseList(props) {
             <ExpenseListItem key={expense.id} expense={expense} />
           )}
         />
+        <p>Total: {numberFormat(trip.expenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p>
       </Card>
     )
   }
