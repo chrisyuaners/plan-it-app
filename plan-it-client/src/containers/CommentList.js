@@ -5,27 +5,26 @@ import CommentForm from '../components/CommentForm'
 import { List, Card } from 'antd'
 
 function CommentList(props) {
-  const trip = props.trips.filter(trip => trip.id === props.selectedTrip)[0]
-  const currentUser = trip.users.filter(user => user.id === props.userId)[0]
+  const tripComments = props.comments.filter(comment => comment.tripId === props.selectedTrip)[0]
 
   return (
     <Card title="Comments" style={{ width: 350 }}>
       <List
         itemLayout="horizontal"
-        dataSource={trip.comments}
+        dataSource={tripComments.comments}
         renderItem={comment => (
           <CommentListItem key={comment.id} comment={comment} />
         )}
       />
-      <CommentForm tripId={trip.id} currentUser={currentUser} />
+      <CommentForm tripId={props.selectedTrip} currentUser={props.currentUser} />
     </Card>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.trips,
-    userId: state.currentUser
+    comments: state.comments,
+    currentUser: state.currentUser
   }
 }
 

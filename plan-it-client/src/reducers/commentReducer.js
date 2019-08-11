@@ -5,7 +5,21 @@ function commentReducer(state=defaultState, action) {
     case 'FETCH_COMMENTS':
       return action.comments
     case 'ADD_COMMENT':
-      return [...state, action.newComment]
+      const tripComments = [...state].filter(tripComment => tripComment.tripId === action.tripId)[0]
+      
+      tripComments.comments.push(action.newComment)
+
+      const updatedTripComments = [...state].map(tripComment => {
+        if (tripComment.tripId !== action.tripId) {
+          return tripComment
+        }
+
+        return {
+          ...tripComment,
+          ...tripComments
+        }
+      })
+      return updatedTripComments
     default:
       return state
   }

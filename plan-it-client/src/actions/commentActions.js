@@ -14,9 +14,10 @@ function fetchComments(userId) {
   }
 }
 
-function addComment(newComment) {
+function addComment(tripId, newComment) {
   return {
     type: 'ADD_COMMENT',
+    tripId: tripId,
     newComment: newComment
   }
 }

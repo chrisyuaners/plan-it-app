@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Input, Button } from 'antd'
+import { addComment } from '../actions/commentActions'
 
 class CommentForm extends React.Component {
   state = {
@@ -25,14 +26,12 @@ class CommentForm extends React.Component {
       body: JSON.stringify({
         content: this.state.newComment,
         trip_id: this.props.tripId,
-        author: this.props.currentUser.full_name
+        author: this.props.currentUser.name
       })
     })
     .then(res => res.json())
     .then(comment => {
-      const trip = this.props.trips.filter(trip => trip.id === this.props.tripId)[0]
-
-      trip.comments.push(comment)
+      this.props.addComment(this.props.tripId, comment)
 
       this.setState({
         newComment: ''
@@ -60,10 +59,4 @@ class CommentForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    trips: state.trips
-  }
-}
-
-export default connect(mapStateToProps)(CommentForm)
+export default connect(null, {addComment: addComment})(CommentForm)
