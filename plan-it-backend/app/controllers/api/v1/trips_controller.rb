@@ -10,7 +10,9 @@ class Api::V1::TripsController < ApplicationController
   end
 
   def create
+    creator = User.find(trip_params[:creator_id])
     trip = Trip.create(trip_params)
+    trip.users.push(creator)
     render json: trip
   end
 
@@ -28,6 +30,6 @@ class Api::V1::TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:start_date, :end_date, :title, :description)
+    params.require(:trip).permit(:start_date, :end_date, :title, :description, :creator_id)
   end
 end
