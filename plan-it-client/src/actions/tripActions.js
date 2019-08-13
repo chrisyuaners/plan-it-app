@@ -1,10 +1,3 @@
-function addTrip(newTrip) {
-  return {
-    type: 'ADD_TRIP',
-    newTrip: newTrip
-  }
-}
-
 function fetchTrips(userId) {
   return function(dispatch) {
     fetch(`http://localhost:3000/api/v1/users/${userId}`)
@@ -15,7 +8,22 @@ function fetchTrips(userId) {
   }
 }
 
+function addTrip(newTrip) {
+  return {
+    type: 'ADD_TRIP',
+    newTrip: newTrip
+  }
+}
+
+function removeTrip(tripId) {
+  return {
+    type: 'REMOVE_TRIP',
+    tripId: tripId
+  }
+}
+
 export {
   fetchTrips,
-  addTrip
+  addTrip,
+  removeTrip
 }

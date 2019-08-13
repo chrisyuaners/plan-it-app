@@ -6,7 +6,6 @@ import { List, Card } from 'antd'
 
 function ExpenseList(props) {
   const tripExpenses = props.expenses.filter(expense => expense.tripId === props.selectedTrip)[0]
-  console.log(tripExpenses)
 
   const reducer = (total, expense) => total + expense
   const numberFormat = (value) =>

@@ -33,11 +33,17 @@ class TripContainer extends React.Component {
     })
   }
 
+  setSelectedTripToNull = () => {
+    this.setState({
+      selectedTrip: null
+    })
+  }
+
   renderTrip = () => {
     return (
       <div>
         <div>
-          <TripCard selectedTrip={this.state.selectedTrip} />
+          <TripCard selectedTrip={this.state.selectedTrip} setSelectedTripToNull={this.setSelectedTripToNull} />
         </div>
         <div>
           <UserList selectedTrip={this.state.selectedTrip} />
