@@ -2,6 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addTrip } from '../actions/tripActions'
 import { Form, Button, Input, DatePicker } from 'antd'
+import { fetchTodos } from '../actions/todoActions'
+import { fetchComments } from '../actions/commentActions'
+import { fetchExpenses } from '../actions/expenseActions'
 
 
 class TripForm extends React.Component {
@@ -45,6 +48,18 @@ class TripForm extends React.Component {
     .then(res => res.json())
     .then(newTrip => {
       this.props.addTrip(newTrip)
+      this.props.fetchTodos(this.props.currentUser.id)
+      this.props.fetchComments(this.props.currentUser.id)
+      this.props.fetchExpenses(this.props.currentUser.id)
+
+      this.setState({
+        title: '',
+        description: '',
+        start_date: '',
+        end_date: ''
+      })
+
+      this.props.hideForm()
     })
   }
 
@@ -83,4 +98,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { addTrip: addTrip })(TripForm)
+export default connect(mapStateToProps, { addTrip: addTrip, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses })(TripForm)

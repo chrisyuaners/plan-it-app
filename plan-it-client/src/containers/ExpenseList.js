@@ -6,6 +6,7 @@ import { List, Card } from 'antd'
 
 function ExpenseList(props) {
   const tripExpenses = props.expenses.filter(expense => expense.tripId === props.selectedTrip)[0]
+  console.log(tripExpenses)
 
   const reducer = (total, expense) => total + expense
   const numberFormat = (value) =>
@@ -24,7 +25,7 @@ function ExpenseList(props) {
             <ExpenseListItem key={expense.id} expense={expense} />
           )}
         />
-        {tripExpenses.length > 0 ? <p>Total: {numberFormat(tripExpenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p> : null}
+        {tripExpenses.expenses.length > 0 ? <p>Total: {numberFormat(tripExpenses.expenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p> : null}
         <ExpenseForm tripId={props.selectedTrip} />
       </Card>
     )

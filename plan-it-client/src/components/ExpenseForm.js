@@ -6,8 +6,8 @@ import { Form, Input, InputNumber, Button } from 'antd'
 class ExpenseForm extends React.Component {
   state ={
     item: '',
-    cost: 0,
-    count: 0
+    cost: null,
+    count: null
   }
 
   handleItemChange = (event) => {
@@ -50,14 +50,13 @@ class ExpenseForm extends React.Component {
 
       this.setState({
         item: '',
-        cost: 0,
-        count: 0
+        cost: null,
+        count: null
       })
     })
   }
 
   render() {
-    console.log(this.state.item, this.state.cost, this.state.count)
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Item label="Item">
@@ -71,7 +70,7 @@ class ExpenseForm extends React.Component {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Add
           </Button>
         </Form.Item>
       </Form>

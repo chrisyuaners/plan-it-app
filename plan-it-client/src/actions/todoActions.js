@@ -22,7 +22,16 @@ function addTodo(tripId, newTodo) {
   }
 }
 
+function removeTodo(tripId, todoId) {
+  return {
+    type: 'REMOVE_TODO',
+    tripId: tripId,
+    todoId: todoId
+  }
+}
+
 export {
   fetchTodos,
-  addTodo
+  addTodo,
+  removeTodo
 }

@@ -14,7 +14,7 @@ function TodoList(props) {
           itemLayout="horizontal"
           dataSource={tripTodos.todos}
           renderItem={todo => (
-            <TodoListItem key={todo.id} todo={todo} />
+            <TodoListItem key={todo.id} todo={todo} tripId={props.selectedTrip} />
           )}
         />
         <TodoForm tripId={props.selectedTrip} />

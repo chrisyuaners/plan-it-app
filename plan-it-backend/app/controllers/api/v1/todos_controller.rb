@@ -4,6 +4,11 @@ class Api::V1::TodosController < ApplicationController
     render json: todos
   end
 
+  def show
+    todo = Todo.find(params[:id])
+    render json: todo
+  end
+
   def create
     todo = Todo.create(todo_params)
     render json: todo
@@ -18,6 +23,7 @@ class Api::V1::TodosController < ApplicationController
   def destroy
     todo = Todo.find(params[:id])
     todo.destroy
+    render json: todo
   end
 
   private
