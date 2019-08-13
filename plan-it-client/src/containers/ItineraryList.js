@@ -2,6 +2,7 @@ import React from 'react'
 import { List, Card } from 'antd'
 import { connect } from 'react-redux'
 import ItineraryListItem from '../components/ItineraryListItem'
+import ItineraryForm from '../components/ItineraryForm'
 
 function ItineraryList(props) {
   const userItinerary = props.itineraries.filter(itinerary => itinerary.user_trip.trip_id === props.selectedTrip)
@@ -16,6 +17,7 @@ function ItineraryList(props) {
             <ItineraryListItem key={itinerary.id} itinerary={itinerary}/>
           )}
         />
+        <ItineraryForm />
       </Card>
     )
   }
@@ -32,4 +34,5 @@ const mapStateToProps = (state) => {
     itineraries: state.itineraries
   }
 }
+
 export default connect(mapStateToProps)(ItineraryList)
