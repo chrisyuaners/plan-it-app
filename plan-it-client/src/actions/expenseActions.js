@@ -14,6 +14,15 @@ function fetchExpenses(userId) {
   }
 }
 
+function addExpense(tripId, newExpense) {
+  return {
+    type: 'ADD_EXPENSE',
+    tripId: tripId,
+    newExpense: newExpense
+  }
+}
+
 export {
-  fetchExpenses
+  fetchExpenses,
+  addExpense
 }

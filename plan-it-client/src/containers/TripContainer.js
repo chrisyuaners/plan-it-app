@@ -27,6 +27,12 @@ class TripContainer extends React.Component {
     })
   }
 
+  hideForm = () => {
+    this.setState({
+      showTripForm: false
+    })
+  }
+
   renderTrip = () => {
     return (
       <div>
@@ -85,7 +91,7 @@ class TripContainer extends React.Component {
           </Sider>
           <Content height={1000}>
             {selectedTrip ? this.renderTrip() : this.renderEmpty()}
-            {showTripForm ? <TripForm /> : null}
+            {showTripForm ? <TripForm hideForm={this.hideForm} /> : null}
           </Content>
         </Layout>
       </div>

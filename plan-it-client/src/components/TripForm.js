@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { addTrip } from '../actions/tripActions'
 import { Form, Button, Input, DatePicker } from 'antd'
 
 
@@ -43,7 +44,7 @@ class TripForm extends React.Component {
     })
     .then(res => res.json())
     .then(newTrip => {
-      console.log(newTrip)
+      this.props.addTrip(newTrip)
     })
   }
 
@@ -51,22 +52,27 @@ class TripForm extends React.Component {
     const { RangePicker } = DatePicker
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Item label="Title">
-          <Input name="title" onChange={this.handleChange} value={this.state.title} placeholder="Title"/>
-        </Form.Item>
-        <Form.Item label="Description">
-          <Input name="description" onChange={this.handleChange} value={this.state.description} placeholder="Description"/>
-        </Form.Item>
-        <Form.Item label="Dates">
-          <RangePicker name="dates" onChange={this.handleDateChange}/>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Plan It
-          </Button>
-        </Form.Item>
-      </Form>
+      <div>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Item label="Title">
+            <Input name="title" onChange={this.handleChange} value={this.state.title} placeholder="Title"/>
+          </Form.Item>
+          <Form.Item label="Description">
+            <Input name="description" onChange={this.handleChange} value={this.state.description} placeholder="Description"/>
+          </Form.Item>
+          <Form.Item label="Dates">
+            <RangePicker name="dates" onChange={this.handleDateChange}/>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Plan It
+            </Button>
+          </Form.Item>
+        </Form>
+        <Button onClick={this.props.hideForm} type="danger">
+          Cancel
+        </Button>
+      </div>
     )
   }
 }
@@ -77,4 +83,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(TripForm)
+export default connect(mapStateToProps, { addTrip: addTrip })(TripForm)

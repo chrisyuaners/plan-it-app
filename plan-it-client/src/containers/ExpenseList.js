@@ -1,10 +1,12 @@
 import React from 'react'
 import ExpenseListItem from '../components/ExpenseListItem'
+import ExpenseForm from '../components/ExpenseForm'
 import { connect } from 'react-redux'
 import { List, Card } from 'antd'
 
 function ExpenseList(props) {
-  const trip = props.trips.filter(trip => trip.id === props.selectedTrip)[0]
+  const tripExpenses = props.expenses.filter(expense => expense.tripId === props.selectedTrip)[0]
+
   const reducer = (total, expense) => total + expense
   const numberFormat = (value) =>
   new Intl.NumberFormat('en-IN', {
@@ -17,12 +19,13 @@ function ExpenseList(props) {
       <Card title="Expenses" style={{ width: 350 }}>
         <List
           itemLayout="horizontal"
-          dataSource={trip.expenses}
+          dataSource={tripExpenses.expenses}
           renderItem={expense => (
             <ExpenseListItem key={expense.id} expense={expense} />
           )}
         />
-        <p>Total: {numberFormat(trip.expenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p>
+        {tripExpenses.length > 0 ? <p>Total: {numberFormat(tripExpenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p> : null}
+        <ExpenseForm tripId={props.selectedTrip} />
       </Card>
     )
   }
@@ -36,7 +39,7 @@ function ExpenseList(props) {
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.trips
+    expenses: state.expenses
   }
 }
 
