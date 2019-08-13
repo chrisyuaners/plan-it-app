@@ -25,7 +25,8 @@ function TodoListItem(props) {
     <List.Item style={{ display: 'flex' }}>
       <List.Item.Meta
         description={props.todo.content}
-      /> <Button onClick={handleClick} type="danger" icon="close" />
+      />
+      <Button onClick={handleClick} type="danger" icon="close" />
     </List.Item>
   )
 }

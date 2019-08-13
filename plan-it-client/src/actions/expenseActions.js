@@ -22,7 +22,16 @@ function addExpense(tripId, newExpense) {
   }
 }
 
+function removeExpense(tripId, expenseId) {
+  return {
+    type: 'REMOVE_EXPENSE',
+    tripId: tripId,
+    expenseId: expenseId
+  }
+}
+
 export {
   fetchExpenses,
-  addExpense
+  addExpense,
+  removeExpense
 }

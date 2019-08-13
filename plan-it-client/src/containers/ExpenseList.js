@@ -21,7 +21,7 @@ function ExpenseList(props) {
           itemLayout="horizontal"
           dataSource={tripExpenses.expenses}
           renderItem={expense => (
-            <ExpenseListItem key={expense.id} expense={expense} />
+            <ExpenseListItem key={expense.id} expense={expense} tripId={props.selectedTrip} />
           )}
         />
         {tripExpenses.expenses.length > 0 ? <p>Total: {numberFormat(tripExpenses.expenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p> : null}

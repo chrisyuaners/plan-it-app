@@ -7,12 +7,13 @@ import TodoList from './TodoList'
 import CommentList from './CommentList'
 import ItineraryList from './ItineraryList'
 import TripForm from '../components/TripForm'
-import { Layout, Empty, Button } from 'antd'
+import { Layout, Empty, Button, Alert } from 'antd'
 
 class TripContainer extends React.Component {
   state = {
     selectedTrip: null,
-    showTripForm: false
+    showTripForm: false,
+    showDeleteMessage: false
   }
 
   selectTrip = (tripId) => {
@@ -39,11 +40,33 @@ class TripContainer extends React.Component {
     })
   }
 
+  showDeleteMessage = () => {
+    this.setState({
+      showDeleteMessage: true
+    })
+  }
+
+  resetDeleteMessage = () => {
+    this.setState({
+      showDeleteMessage: false
+    })
+  }
+
+  renderDeleteMessage = () => {
+    return (
+      <Alert message="Trip Removed" type="success" showIcon closable/>
+    )
+  }
+
   renderTrip = () => {
     return (
       <div>
         <div>
-          <TripCard selectedTrip={this.state.selectedTrip} setSelectedTripToNull={this.setSelectedTripToNull} />
+          <TripCard
+            selectedTrip={this.state.selectedTrip}
+            setSelectedTripToNull={this.setSelectedTripToNull}
+            showDeleteMessage={this.showDeleteMessage}
+          />
         </div>
         <div>
           <UserList selectedTrip={this.state.selectedTrip} />
@@ -86,16 +109,22 @@ class TripContainer extends React.Component {
 
   render() {
     const { Sider, Content } = Layout
-    const { selectedTrip,showTripForm } = this.state
+    const { selectedTrip,showTripForm, showDeleteMessage } = this.state
 
     return (
       <div>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider width={250} style={{ background: '#fff' }}>
-            <TripList selectTrip={this.selectTrip} />
-            <Button onClick={this.showForm}>Add Trip</Button>
+            <TripList
+              selectTrip={this.selectTrip}
+              resetDeleteMessage={this.resetDeleteMessage}
+            />
+            <Button onClick={this.showForm}>
+              Add Trip
+            </Button>
           </Sider>
           <Content height={1000}>
+            {showDeleteMessage ? this.renderDeleteMessage() : null}
             {selectedTrip ? this.renderTrip() : this.renderEmpty()}
             {showTripForm ? <TripForm hideForm={this.hideForm} /> : null}
           </Content>

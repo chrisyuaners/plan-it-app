@@ -4,6 +4,11 @@ class Api::V1::ExpensesController < ApplicationController
     render json: expenses
   end
 
+  def show
+    expense = Expense.find(params[:id])
+    render json: expense
+  end
+
   def create
     expense = Expense.create(expense_params)
     render json: expense
@@ -18,6 +23,7 @@ class Api::V1::ExpensesController < ApplicationController
   def destroy
     expense = Expense.find(params[:id])
     expense.destroy
+    render json: expense
   end
 
   private

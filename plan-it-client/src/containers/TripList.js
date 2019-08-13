@@ -10,7 +10,7 @@ function TripList(props) {
         itemLayout="horizontal"
         dataSource={props.trips}
         renderItem={trip => (
-          <TripListItem key={trip.id} trip={trip} selectTrip={props.selectTrip} />
+          <TripListItem key={trip.id} trip={trip} selectTrip={props.selectTrip} resetDeleteMessage={props.resetDeleteMessage} />
         )}
       />
     )

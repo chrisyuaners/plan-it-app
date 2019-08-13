@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { removeTrip } from '../actions/tripActions'
-import { Card, Typography, Icon } from 'antd'
+import { Card, Typography, Icon, Popconfirm } from 'antd'
 
 class TripCard extends React.Component {
   removeTrip = () => {
@@ -17,6 +17,7 @@ class TripCard extends React.Component {
     })
     .then(res => res.json())
     .then(trip => {
+      this.props.showDeleteMessage()
       this.props.setSelectedTripToNull()
       this.props.removeTrip(trip.id)
     })
@@ -31,7 +32,9 @@ class TripCard extends React.Component {
         <Card
         actions={[
           <Icon type="edit" key="edit" />,
-          <Icon type="delete" key="delete" onClick={this.removeTrip} />,
+          <Popconfirm title="Delete this trip?" onConfirm={this.removeTrip} cancelText="No">
+            <Icon type="delete" key="delete"/>
+          </Popconfirm>,
         ]}
         >
           <Title>{trip.title}</Title>
