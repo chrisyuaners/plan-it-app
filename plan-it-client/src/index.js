@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import userReducer from './reducers/userReducer'
+import destinationReducer from './reducers/destinationReducer'
 import tripReducer from './reducers/tripReducer'
 import commentReducer from './reducers/commentReducer'
 import todoReducer from './reducers/todoReducer'
@@ -15,6 +16,7 @@ import * as serviceWorker from './serviceWorker'
 
 const rootReducer = combineReducers({
   currentUser: userReducer,
+  destinations: destinationReducer,
   trips: tripReducer,
   itineraries: itineraryReducer,
   comments: commentReducer,

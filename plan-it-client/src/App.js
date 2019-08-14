@@ -8,6 +8,7 @@ import { fetchItineraries } from './actions/itineraryActions'
 import { fetchTodos } from './actions/todoActions'
 import { fetchComments } from './actions/commentActions'
 import { fetchExpenses } from './actions/expenseActions'
+import { fetchDestinations } from './actions/destinationActions'
 
 class App extends React.Component {
   state = {
@@ -16,6 +17,7 @@ class App extends React.Component {
 
   componentDidMount(){
     this.props.fetchUser(this.state.userId)
+    this.props.fetchDestinations()
     this.props.fetchTrips(this.state.userId)
     this.props.fetchItineraries(this.state.userId)
     this.props.fetchTodos(this.state.userId)
@@ -32,4 +34,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {fetchTrips: fetchTrips, fetchItineraries: fetchItineraries, fetchUser: fetchUser, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses})(App)
+export default connect(null, {fetchTrips: fetchTrips, fetchItineraries: fetchItineraries, fetchUser: fetchUser, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses, fetchDestinations: fetchDestinations})(App)

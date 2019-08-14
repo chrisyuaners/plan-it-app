@@ -17,7 +17,7 @@ function ItineraryList(props) {
             <ItineraryListItem key={itinerary.id} itinerary={itinerary}/>
           )}
         />
-        <ItineraryForm />
+        <ItineraryForm tripId={props.selectedTrip} />
       </Card>
     )
   }
