@@ -22,8 +22,16 @@ function removeTrip(tripId) {
   }
 }
 
+function editTrip(updatedTrip) {
+  return {
+    type: 'EDIT_TRIP',
+    updatedTrip: updatedTrip
+  }
+}
+
 export {
   fetchTrips,
   addTrip,
-  removeTrip
+  removeTrip,
+  editTrip
 }

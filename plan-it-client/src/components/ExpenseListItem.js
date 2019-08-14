@@ -5,10 +5,10 @@ import { removeExpense } from '../actions/expenseActions'
 
 function ExpenseListItem(props) {
   const numberFormat = (value) =>
-  new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(value)
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(value)
 
   function handleClick() {
     fetch(`http://localhost:3000/api/v1/expenses/${props.expense.id}`, {
