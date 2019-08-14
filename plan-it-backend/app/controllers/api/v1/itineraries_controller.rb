@@ -6,6 +6,11 @@ class Api::V1::ItinerariesController < ApplicationController
 
   def create
     itinerary = Itinerary.create(itinerary_params)
+    destination_from = Destination.where(city: params[:cityFrom], country: params[:countryFrom])[0]
+    destination_to = Destination.where(city: params[:cityTo], country: params[:countryTo])[0]
+    itinerary_destination_from = ItineraryDestination.create(itinerary_id: itinerary.id, destination_id: destination_from.id, from: true)
+    itinerary_destination_to = ItineraryDestination.create(itinerary_id: itinerary.id, destination_id: destination_to.id, from: false)
+    debugger
     render json: itinerary
   end
 

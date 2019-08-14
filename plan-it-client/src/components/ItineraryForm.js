@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Modal, Form, Input, DatePicker, Select } from 'antd'
+import { Button, Modal, Form, Input, DatePicker, Select, Switch } from 'antd'
 
 class ItineraryForm extends React.Component {
   state = {
@@ -9,20 +9,35 @@ class ItineraryForm extends React.Component {
     departure: '',
     arrival: '',
     address: '',
-    cities: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
-    secondCity: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0]
+    citiesFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
+    secondCityFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0],
+    citiesTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
+    secondCityTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0]
   }
 
-  handleCountryChange = value => {
+  handleCountryChangeFrom = value => {
     this.setState({
-      cities: this.props.destinations.citiesByCountry[value],
-      secondCity: this.props.destinations.citiesByCountry[value][0],
+      citiesFrom: this.props.destinations.citiesByCountry[value],
+      secondCityFrom: this.props.destinations.citiesByCountry[value][0],
     })
   }
 
-  onSecondCityChange = value => {
+  onSecondCityChangeFrom = value => {
     this.setState({
-      secondCity: value,
+      secondCityFrom: value,
+    })
+  }
+
+  handleCountryChangeTo = value => {
+    this.setState({
+      citiesTo: this.props.destinations.citiesByCountry[value],
+      secondCityTo: this.props.destinations.citiesByCountry[value][0],
+    })
+  }
+
+  onSecondCityChangeTo = value => {
+    this.setState({
+      secondCityTo: value,
     })
   }
 
@@ -74,15 +89,17 @@ class ItineraryForm extends React.Component {
         departure: this.state.departure,
         arrival: this.state.arrival,
         address: this.state.address,
-        user_trip_id: this.props.user_trips.filter(userTrip => userTrip.trip_id === this.props.tripId)[0].id
+        user_trip_id: this.props.user_trips.filter(userTrip => userTrip.trip_id === this.props.tripId)[0].id,
+        cityFrom: this.state.secondCityFrom,
+        countryFrom: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityFrom)[0].country,
+        cityTo: this.state.secondCityTo,
+        countryTo: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityTo)[0].country
       })
     })
   }
 
   render() {
     const { Option } = Select
-
-    console.log(this.state.cities, this.state.secondCity)
 
     return (
       <div>
@@ -101,11 +118,11 @@ class ItineraryForm extends React.Component {
           ]}
         >
           <Form onSubmit={this.handleSubmit}>
-            <Form.Item label="Destination">
+            <Form.Item label="From">
               <Select
                 defaultValue={this.props.destinations.countries[0]}
                 style={{ width: 150 }}
-                onChange={this.handleCountryChange}
+                onChange={this.handleCountryChangeFrom}
               >
                 {this.props.destinations.countries.map(country => (
                   <Option key={country}>{country}</Option>
@@ -113,10 +130,30 @@ class ItineraryForm extends React.Component {
               </Select>
               <Select
                 style={{ width: 150 }}
-                value={this.state.secondCity}
-                onChange={this.onSecondCityChange}
+                value={this.state.secondCityFrom}
+                onChange={this.onSecondCityChangeFrom}
               >
-                {this.state.cities.map(city => (
+                {this.state.citiesFrom.map(city => (
+                  <Option key={city}>{city}</Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item label="To">
+              <Select
+                defaultValue={this.props.destinations.countries[0]}
+                style={{ width: 150 }}
+                onChange={this.handleCountryChangeTo}
+              >
+                {this.props.destinations.countries.map(country => (
+                  <Option key={country}>{country}</Option>
+                ))}
+              </Select>
+              <Select
+                style={{ width: 150 }}
+                value={this.state.secondCityTo}
+                onChange={this.onSecondCityChangeTo}
+              >
+                {this.state.citiesTo.map(city => (
                   <Option key={city}>{city}</Option>
                 ))}
               </Select>
