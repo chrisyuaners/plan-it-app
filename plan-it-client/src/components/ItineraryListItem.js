@@ -1,5 +1,7 @@
 import React from 'react'
-import { List } from 'antd'
+import { connect } from 'react-redux'
+import { List, Button } from 'antd'
+import { removeItinerary } from '../actions/itineraryActions'
 import moment from 'moment'
 
 function ItineraryListItem(props) {
@@ -7,6 +9,23 @@ function ItineraryListItem(props) {
   const flyingFrom = props.itinerary.destinations.filter(destination => destination.id === flyingFromId)[0]
   const flyingToId = props.itinerary.itinerary_destinations.filter(itin => itin.from === false)[0].destination_id
   const flyingTo = props.itinerary.destinations.filter(destination => destination.id === flyingToId)[0]
+  
+  function handleClick() {
+    fetch(`http://localhost:3000/api/v1/itineraries/${props.itinerary.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": 'application/json',
+        "Accepts": 'application/json'
+      },
+      body: JSON.stringify({
+        id: props.itinerary.id
+      })
+    })
+    .then(res => res.json())
+    .then(itinerary => {
+      props.removeExpense(props.tripId, itinerary.id)
+    })
+  }
 
   return (
     <List.Item>
@@ -14,8 +33,9 @@ function ItineraryListItem(props) {
         title={`${flyingFrom.city} to ${flyingTo.city}`}
         description={`Departure: ${moment(props.itinerary.departure).format('LLL')} - Arrival: ${moment(props.itinerary.arrival).format('LLL')}`}
       />
+      <Button onClick={handleClick} type="danger" icon="close" />
     </List.Item>
   )
 }
 
-export default ItineraryListItem
+export default connect(null, { removeItinerary: removeItinerary })(ItineraryListItem)

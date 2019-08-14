@@ -102,7 +102,9 @@ class TripContainer extends React.Component {
         }
       >
          <p>or</p>
-         <Button type="primary">Create One</Button>
+         <Button type="primary" onClick={this.showForm}>
+          Create One
+        </Button>
       </Empty>
     )
   }

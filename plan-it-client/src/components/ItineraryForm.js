@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Modal, Form, Input, DatePicker, Select, Switch } from 'antd'
+import { addItinerary } from '../actions/itineraryActions'
+import { Button, Modal, Form, Input, DatePicker, Select } from 'antd'
 
 class ItineraryForm extends React.Component {
   state = {
@@ -15,27 +16,27 @@ class ItineraryForm extends React.Component {
     secondCityTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0]
   }
 
-  handleCountryChangeFrom = value => {
+  handleCountryChangeFrom = (value) => {
     this.setState({
       citiesFrom: this.props.destinations.citiesByCountry[value],
       secondCityFrom: this.props.destinations.citiesByCountry[value][0],
     })
   }
 
-  onSecondCityChangeFrom = value => {
+  onSecondCityChangeFrom = (value) => {
     this.setState({
       secondCityFrom: value,
     })
   }
 
-  handleCountryChangeTo = value => {
+  handleCountryChangeTo = (value) => {
     this.setState({
       citiesTo: this.props.destinations.citiesByCountry[value],
       secondCityTo: this.props.destinations.citiesByCountry[value][0],
     })
   }
 
-  onSecondCityChangeTo = value => {
+  onSecondCityChangeTo = (value) => {
     this.setState({
       secondCityTo: value,
     })
@@ -94,6 +95,22 @@ class ItineraryForm extends React.Component {
         countryFrom: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityFrom)[0].country,
         cityTo: this.state.secondCityTo,
         countryTo: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityTo)[0].country
+      })
+    })
+    .then(res => res.json())
+    .then(newItinerary => {
+      this.props.addItinerary(newItinerary)
+
+      this.setState({
+        showModal: false,
+        destination: null,
+        departure: '',
+        arrival: '',
+        address: '',
+        citiesFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
+        secondCityFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0],
+        citiesTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
+        secondCityTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0]
       })
     })
   }
@@ -186,4 +203,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(ItineraryForm)
+export default connect(mapStateToProps, { addItinerary: addItinerary })(ItineraryForm)

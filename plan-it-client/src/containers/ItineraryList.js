@@ -14,7 +14,7 @@ function ItineraryList(props) {
           itemLayout="horizontal"
           dataSource={userItinerary}
           renderItem={itinerary => (
-            <ItineraryListItem key={itinerary.id} itinerary={itinerary}/>
+            <ItineraryListItem key={itinerary.id} itinerary={itinerary} tripId={props.selectedTrip}/>
           )}
         />
         <ItineraryForm tripId={props.selectedTrip} />
