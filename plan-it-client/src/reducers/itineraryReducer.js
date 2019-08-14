@@ -5,11 +5,15 @@ function itineraryReducer(state=defaultState, action){
     case 'FETCH_ITINERARIES':
       return action.itineraries
     case 'ADD_ITINERARY':
-      const addToTripItineraries = [...state]
-      
-      addToTripItineraries.push(action.newItinerary)
+      const addToItineraries = [...state]
 
-      return addToTripItineraries
+      addToItineraries.push(action.newItinerary)
+
+      return addToItineraries
+    case 'REMOVE_ITINERARY':
+      const removeFromItineraries = [...state].filter(itinerary => itinerary.id !== action.itineraryId)
+
+      return removeFromItineraries
     default:
       return state
   }

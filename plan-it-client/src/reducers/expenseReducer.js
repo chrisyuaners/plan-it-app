@@ -23,7 +23,7 @@ function expenseReducer(state=defaultState, action) {
       return updatedTripExpenses
     case 'REMOVE_EXPENSE':
       const removeFromTripExpenses = [...state].filter(tripExpense => tripExpense.tripId === action.tripId)[0]
-      console.log(action.tripId)
+
       removeFromTripExpenses.expenses = removeFromTripExpenses.expenses.filter(expense => expense.id !== action.expenseId)
 
       const updatedTripExpensesWithRemove = [...state].map(tripExpense => {

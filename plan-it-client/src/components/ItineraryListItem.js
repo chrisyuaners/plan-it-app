@@ -9,7 +9,7 @@ function ItineraryListItem(props) {
   const flyingFrom = props.itinerary.destinations.filter(destination => destination.id === flyingFromId)[0]
   const flyingToId = props.itinerary.itinerary_destinations.filter(itin => itin.from === false)[0].destination_id
   const flyingTo = props.itinerary.destinations.filter(destination => destination.id === flyingToId)[0]
-  
+
   function handleClick() {
     fetch(`http://localhost:3000/api/v1/itineraries/${props.itinerary.id}`, {
       method: "DELETE",
@@ -23,7 +23,7 @@ function ItineraryListItem(props) {
     })
     .then(res => res.json())
     .then(itinerary => {
-      props.removeExpense(props.tripId, itinerary.id)
+      props.removeItinerary(itinerary.id)
     })
   }
 

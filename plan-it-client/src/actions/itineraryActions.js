@@ -15,10 +15,9 @@ function addItinerary(newItinerary) {
   }
 }
 
-function removeItinerary(tripId, itineraryId) {
+function removeItinerary(itineraryId) {
   return {
     type: 'REMOVE_ITINERARY',
-    tripId: tripId,
     itineraryId: itineraryId
   }
 }
