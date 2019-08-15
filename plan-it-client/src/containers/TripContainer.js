@@ -69,19 +69,17 @@ class TripContainer extends React.Component {
           />
         </div>
         <div>
-          <UserList selectedTrip={this.state.selectedTrip} />
-        </div>
-        <div>
-          <ItineraryList selectedTrip={this.state.selectedTrip} />
-        </div>
-        <div>
-          <ExpenseList selectedTrip={this.state.selectedTrip} />
-        </div>
-        <div>
-          <TodoList selectedTrip={this.state.selectedTrip} />
-        </div>
-        <div>
-          <CommentList selectedTrip={this.state.selectedTrip} />
+          <div>
+            <UserList selectedTrip={this.state.selectedTrip} />
+            <ItineraryList selectedTrip={this.state.selectedTrip} />
+          </div>
+          <div>
+            <ExpenseList selectedTrip={this.state.selectedTrip} />
+            <TodoList selectedTrip={this.state.selectedTrip} />
+          </div>
+          <div>
+            <CommentList selectedTrip={this.state.selectedTrip} />
+          </div>
         </div>
       </div>
     )
@@ -116,7 +114,7 @@ class TripContainer extends React.Component {
     return (
       <div>
         <Layout style={{ minHeight: '100vh' }}>
-          <Sider width={250} style={{ background: '#fff' }}>
+          <Sider width={'20%'} style={{ background: '#fff' }}>
             <TripList
               selectTrip={this.selectTrip}
               resetDeleteMessage={this.resetDeleteMessage}
@@ -125,7 +123,7 @@ class TripContainer extends React.Component {
               Add Trip
             </Button>
           </Sider>
-          <Content height={1000}>
+          <Content height={'100vh'} width={'80%'}>
             {showDeleteMessage ? this.renderDeleteMessage() : null}
             {selectedTrip ? this.renderTrip() : this.renderEmpty()}
             {showTripForm ? <TripForm hideForm={this.hideForm} /> : null}

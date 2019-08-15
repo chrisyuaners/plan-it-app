@@ -9,7 +9,7 @@ function ItineraryList(props) {
 
   function renderItineraries() {
     return (
-      <Card title="Itinerary" style={{ width: 350 }}>
+      <Card title="Itinerary" style={{ width: '100%' }}>
         <List
           itemLayout="horizontal"
           dataSource={userItinerary}

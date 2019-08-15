@@ -8,7 +8,7 @@ function CommentList(props) {
   const tripComments = props.comments.filter(comment => comment.tripId === props.selectedTrip)[0]
 
   return (
-    <Card title="Comments" style={{ width: 350 }}>
+    <Card title="Comments" style={{ width: '100%' }}>
       <List
         itemLayout="horizontal"
         dataSource={tripComments.comments}

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       resources :itineraries
       resources :destinations
       resources :itinerary_destinations
+
+      post "/signup", to: "users#create"
     end
   end
 end

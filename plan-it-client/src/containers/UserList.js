@@ -8,7 +8,7 @@ function UserList(props) {
 
   function renderUsers() {
     return (
-      <Card title="People" style={{ width: 350 }}>
+      <Card title="People" style={{ width: '100%' }}>
         <List
           itemLayout="horizontal"
           dataSource={trip.users}

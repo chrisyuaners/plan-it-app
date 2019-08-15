@@ -1,6 +1,8 @@
 import React from 'react'
 import './App.css'
+import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
+import SignupForm from './components/SignupForm'
 import MainContainer from './containers/MainContainer'
 import { fetchTrips } from './actions/tripActions'
 import { fetchUser } from './actions/userActions'
@@ -28,7 +30,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <MainContainer trips={this.props.trips}/>
+        <Switch>
+          <Route path="/signup" component={SignupForm} />
+          <Route path="/home" render={(routerProps) => <MainContainer {...routerProps} trips={this.props.trips}/>} />
+        </Switch>
       </div>
     )
   }
