@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :itinerary_destinations
 
       post "/signup", to: "users#create"
+      post "/login", to: "auth#login"
     end
   end
 end

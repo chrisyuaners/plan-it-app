@@ -34,6 +34,14 @@ class SignupForm extends React.Component {
           password: this.state.password
         })
       })
+      .then(res => res.json())
+      .then(response => {
+        if (response.errors) {
+          alert(response.errors)
+        } else {
+          this.props.setUser(response)
+        }
+      })
     } else {
       alert("Passwords don't match")
     }
