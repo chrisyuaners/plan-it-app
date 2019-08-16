@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addTrip } from '../actions/tripActions'
-import { Form, Button, Input, DatePicker } from 'antd'
+import { Form, Button, Input, DatePicker, Alert } from 'antd'
 import { fetchTodos } from '../actions/todoActions'
 import { fetchComments } from '../actions/commentActions'
 import { fetchExpenses } from '../actions/expenseActions'
@@ -12,7 +12,8 @@ class TripForm extends React.Component {
     title: '',
     description: '',
     start_date: '',
-    end_date: ''
+    end_date: '',
+    showError: false
 }
 
   handleChange = (event) => {
@@ -28,39 +29,66 @@ class TripForm extends React.Component {
     })
   }
 
+  showError = () => {
+    this.setState({
+      showError: true
+    })
+  }
+
+  hideError = () => {
+    this.setState({
+      showError: false
+    })
+  }
+
+  renderValidateStatus = () => {
+    return (
+      <div>
+        <Alert message="Please fill in all fields" type="error" showIcon/>
+        <Button onClick={this.hideError}>
+          Okay boss
+        </Button>
+      </div>
+    )
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://localhost:3000/api/v1/trips', {
-      method: "POST",
-      headers: {
-        "Content-Type": 'application/json',
-        "Accepts": 'application/json'
-      },
-      body: JSON.stringify({
-        title: this.state.title,
-        description: this.state.description,
-        start_date: this.state.start_date,
-        end_date: this.state.end_date,
-        creator_id: this.props.currentUser.id
+    if (!this.state.title || !this.state.description || !this.state.start_date || !this.state.end_date) {
+      this.showError()
+    } else {
+      fetch('http://localhost:3000/api/v1/trips', {
+        method: "POST",
+        headers: {
+          "Content-Type": 'application/json',
+          "Accepts": 'application/json'
+        },
+        body: JSON.stringify({
+          title: this.state.title,
+          description: this.state.description,
+          start_date: this.state.start_date,
+          end_date: this.state.end_date,
+          creator_id: this.props.currentUser.id
+        })
       })
-    })
-    .then(res => res.json())
-    .then(newTrip => {
-      this.props.addTrip(newTrip)
-      this.props.fetchTodos(this.props.currentUser.id)
-      this.props.fetchComments(this.props.currentUser.id)
-      this.props.fetchExpenses(this.props.currentUser.id)
+      .then(res => res.json())
+      .then(newTrip => {
+        this.props.addTrip(newTrip)
+        this.props.fetchTodos(this.props.currentUser.id)
+        this.props.fetchComments(this.props.currentUser.id)
+        this.props.fetchExpenses(this.props.currentUser.id)
 
-      this.setState({
-        title: '',
-        description: '',
-        start_date: '',
-        end_date: ''
+        this.setState({
+          title: '',
+          description: '',
+          start_date: '',
+          end_date: ''
+        })
+
+        this.props.hideForm()
       })
-
-      this.props.hideForm()
-    })
+    }
   }
 
   render() {
@@ -70,6 +98,7 @@ class TripForm extends React.Component {
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
+          {this.state.showError ? this.renderValidateStatus() : null}
           <Form.Item label="Title">
             <Input name="title" onChange={this.handleChange} value={this.state.title} />
           </Form.Item>

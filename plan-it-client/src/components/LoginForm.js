@@ -40,10 +40,12 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div style={this.props.loginProps.showText ? this.props.loginProps.style : this.props.loginProps.style}>
-        {this.props.loginProps.showText ? <div>
+        {this.props.loginProps.showText ?
+        <div>
           <h1>Welcome Back, Playa</h1>
           <h1><span role="img" aria-label="Close">🥳🐙</span></h1>
-        </div> : null}
+        </div>
+        : null}
         <Form layout={this.props.loginProps.layout} onSubmit={this.handleSubmit}>
           <Form.Item>
             <Input name="username" onChange={this.handleChange} value={this.state.username} placeholder="Username" />
