@@ -1,4 +1,5 @@
 import React from 'react'
+import NavBar from '../components/NavBar'
 import TripContainer from './TripContainer'
 
 class MainContainer extends React.Component {
@@ -13,6 +14,7 @@ class MainContainer extends React.Component {
   render() {
     return (
       <div>
+        <NavBar />
         <TripContainer />
       </div>
     )
