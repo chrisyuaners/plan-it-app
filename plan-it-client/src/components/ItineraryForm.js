@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import AlgoliaPlaces from 'algolia-places-react'
 import { addItinerary } from '../actions/itineraryActions'
-import { Button, Modal, Form, Input, DatePicker, Select, Alert } from 'antd'
+import { Button, Modal, Form, DatePicker, Select, Alert } from 'antd'
 
 class ItineraryForm extends React.Component {
   state = {
@@ -212,7 +213,19 @@ class ItineraryForm extends React.Component {
               <DatePicker showTime name="arrival" onChange={this.handleArrivalChange} />
             </Form.Item>
             <Form.Item label="Address">
-              <Input name="address" onChange={this.handleAddressChange} value={this.state.address}/>
+              <AlgoliaPlaces
+              onChange={({ query, rawAnswer, suggestion, suggestionIndex }) => {
+                this.setState({
+                  address: suggestion.value
+                })
+              }}
+                options={{
+                  appId: 'plREHEK4QC8G',
+                  apiKey: 'd52c31240cffd6786c6305bff76b9a97',
+                  language: 'en',
+                  type: 'address'
+                }}
+              />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-places-autocomplete": "^7.2.1",
     "react-scripts": "3.1.1"
   }
 }
