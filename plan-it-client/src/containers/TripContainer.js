@@ -7,7 +7,7 @@ import TodoList from './TodoList'
 import CommentList from './CommentList'
 import ItineraryList from './ItineraryList'
 import TripForm from '../components/TripForm'
-import { Layout, Empty, Button, Alert } from 'antd'
+import { Layout, Empty, Button, Alert, Modal } from 'antd'
 
 class TripContainer extends React.Component {
   state = {
@@ -109,7 +109,7 @@ class TripContainer extends React.Component {
 
   render() {
     const { Sider, Content } = Layout
-    const { selectedTrip,showTripForm, showDeleteMessage } = this.state
+    const { selectedTrip, showDeleteMessage } = this.state
 
     return (
       <div>
@@ -126,7 +126,19 @@ class TripContainer extends React.Component {
           <Content height={'100vh'} width={'80%'}>
             {showDeleteMessage ? this.renderDeleteMessage() : null}
             {selectedTrip ? this.renderTrip() : this.renderEmpty()}
-            {showTripForm ? <TripForm hideForm={this.hideForm} /> : null}
+            <Modal
+              title="Create Trip"
+              visible={this.state.showTripForm}
+              onOk={null}
+              onCancel={this.hideForm}
+              footer={[
+                <Button key="back" onClick={this.hideForm} type="danger">
+                  Cancel
+                </Button>
+              ]}
+            >
+              <TripForm hideForm={this.hideForm}/>
+            </Modal>
           </Content>
         </Layout>
       </div>

@@ -27,15 +27,17 @@ class App extends React.Component {
       this.props.fetchDestinations()
       this.props.fetchTrips(this.state.currentUserId)
       this.props.fetchItineraries(this.state.currentUserId)
+      this.props.fetchComments(this.state.currentUserId)
       this.props.fetchTodos(this.state.currentUserId)
+      this.props.fetchExpenses(this.state.currentUserId)
     })
   }
 
-  setUser = (response) => {
+  setUser = (user) => {
     this.setState({
-      currentUserId: response.user.id
+      currentUserId: user.id
     }, () => {
-      localStorage.user_id = response.user.id
+      localStorage.user_id = user.id
       this.props.history.push("/home")
     })
   }
@@ -50,7 +52,6 @@ class App extends React.Component {
   ]
 
   render() {
-    console.log(this.state.currentUserId)
     return (
       <div className="App">
         <Switch>

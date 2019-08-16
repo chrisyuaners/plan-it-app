@@ -65,15 +65,16 @@ class TripForm extends React.Component {
 
   render() {
     const { RangePicker } = DatePicker
+    const { TextArea } = Input
 
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Item label="Title">
-            <Input name="title" onChange={this.handleChange} value={this.state.title} placeholder="Title"/>
+            <Input name="title" onChange={this.handleChange} value={this.state.title} />
           </Form.Item>
           <Form.Item label="Description">
-            <Input name="description" onChange={this.handleChange} value={this.state.description} placeholder="Description"/>
+            <TextArea name="description" onChange={this.handleChange} value={this.state.description} />
           </Form.Item>
           <Form.Item label="Dates">
             <RangePicker name="dates" onChange={this.handleDateChange}/>
@@ -84,9 +85,6 @@ class TripForm extends React.Component {
             </Button>
           </Form.Item>
         </Form>
-        <Button onClick={this.props.hideForm} type="danger">
-          Cancel
-        </Button>
       </div>
     )
   }
