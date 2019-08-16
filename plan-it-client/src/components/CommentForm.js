@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, Alert } from 'antd'
 import { addComment } from '../actions/commentActions'
 
 class CommentForm extends React.Component {
   state = {
-    newComment: ''
+    newComment: '',
+    showError: false
   }
 
   handleChange = (event) => {
@@ -14,47 +15,73 @@ class CommentForm extends React.Component {
     })
   }
 
+  showError = () => {
+    this.setState({
+      showError: true
+    })
+  }
+
+  hideError = () => {
+    this.setState({
+      showError: false
+    })
+  }
+
+  renderValidateStatus = () => {
+    return (
+      <div>
+        <Alert message="You can't post nothing" type="error" showIcon/>
+        <Button onClick={this.hideError}>
+          Okay boss
+        </Button>
+      </div>
+    )
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://localhost:3000/api/v1/comments', {
-      method: "POST",
-      headers: {
-        "Content-Type": 'application/json',
-        "Accepts": 'application/json'
-      },
-      body: JSON.stringify({
-        content: this.state.newComment,
-        trip_id: this.props.tripId,
-        author: this.props.currentUser.name
+    if (!this.state.newComment) {
+      this.showError()
+    } else {
+      fetch('http://localhost:3000/api/v1/comments', {
+        method: "POST",
+        headers: {
+          "Content-Type": 'application/json',
+          "Accepts": 'application/json'
+        },
+        body: JSON.stringify({
+          content: this.state.newComment,
+          trip_id: this.props.tripId,
+          author: this.props.currentUser.name
+        })
       })
-    })
-    .then(res => res.json())
-    .then(comment => {
-      this.props.addComment(this.props.tripId, comment)
+      .then(res => res.json())
+      .then(comment => {
+        this.props.addComment(this.props.tripId, comment)
 
-      this.setState({
-        newComment: ''
+        this.setState({
+          newComment: ''
+        })
       })
-    })
+    }
   }
 
   render() {
     const { TextArea } = Input
 
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Item>
-            <TextArea rows={2} name="newComment" onChange={this.handleChange} value={this.state.newComment}/>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Post
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+      <Form onSubmit={this.handleSubmit}>
+        {this.state.showError ? this.renderValidateStatus() : null}
+        <Form.Item>
+          <TextArea rows={2} name="newComment" onChange={this.handleChange} value={this.state.newComment}/>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Post
+          </Button>
+        </Form.Item>
+      </Form>
     )
   }
 }

@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, Alert } from 'antd'
 import { addTodo } from '../actions/todoActions'
 
 class TodoForm extends React.Component {
   state = {
-    newTodo: ''
+    newTodo: '',
+    showError: false
   }
 
   handleChange = (event) => {
@@ -14,44 +15,70 @@ class TodoForm extends React.Component {
     })
   }
 
+  showError = () => {
+    this.setState({
+      showError: true
+    })
+  }
+
+  hideError = () => {
+    this.setState({
+      showError: false
+    })
+  }
+
+  renderValidateStatus = () => {
+    return (
+      <div>
+        <Alert message="Your todo is blank" type="error" showIcon/>
+        <Button onClick={this.hideError}>
+          Okay boss
+        </Button>
+      </div>
+    )
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://localhost:3000/api/v1/todos', {
-      method: "POST",
-      headers: {
-        "Content-Type": 'application/json',
-        "Accepts": 'application/json'
-      },
-      body: JSON.stringify({
-        content: this.state.newTodo,
-        trip_id: this.props.tripId
+    if (!this.state.newTodo) {
+      this.showError()
+    } else {
+      fetch('http://localhost:3000/api/v1/todos', {
+        method: "POST",
+        headers: {
+          "Content-Type": 'application/json',
+          "Accepts": 'application/json'
+        },
+        body: JSON.stringify({
+          content: this.state.newTodo,
+          trip_id: this.props.tripId
+        })
       })
-    })
-    .then(res => res.json())
-    .then(todo => {
-      this.props.addTodo(this.props.tripId, todo)
+      .then(res => res.json())
+      .then(todo => {
+        this.props.addTodo(this.props.tripId, todo)
 
-      this.setState({
-        newTodo: ''
+        this.setState({
+          newTodo: ''
+        })
       })
-    })
+    }
   }
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Item>
-            <Input name="newTodo" onChange={this.handleChange} value={this.state.newTodo}/>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Add
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+      <Form onSubmit={this.handleSubmit}>
+        {this.state.showError ? this.renderValidateStatus() : null}
+        <Form.Item>
+          <Input name="newTodo" onChange={this.handleChange} value={this.state.newTodo}/>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Add
+          </Button>
+        </Form.Item>
+      </Form>
     )
   }
 }

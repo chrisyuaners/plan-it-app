@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addItinerary } from '../actions/itineraryActions'
-import { Button, Modal, Form, Input, DatePicker, Select } from 'antd'
+import { Button, Modal, Form, Input, DatePicker, Select, Alert } from 'antd'
 
 class ItineraryForm extends React.Component {
   state = {
@@ -13,7 +13,8 @@ class ItineraryForm extends React.Component {
     citiesFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
     secondCityFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0],
     citiesTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
-    secondCityTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0]
+    secondCityTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0],
+    showError: false
   }
 
   handleCountryChangeFrom = (value) => {
@@ -59,6 +60,7 @@ class ItineraryForm extends React.Component {
       address: event.target.value
     })
   }
+
   handleDestinationChange = () => {
     this.setState({
       destination: {}
@@ -77,42 +79,69 @@ class ItineraryForm extends React.Component {
     })
   }
 
+  showError = () => {
+    this.setState({
+      showError: true
+    })
+  }
+
+  hideError = () => {
+    this.setState({
+      showError: false
+    })
+  }
+
+  renderValidateStatus = () => {
+    return (
+      <div>
+        <Alert message="Please fill in all fields" type="error" showIcon/>
+        <Button onClick={this.hideError}>
+          Okay boss
+        </Button>
+      </div>
+    )
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://localhost:3000/api/v1/itineraries', {
-      method: "POST",
-      headers: {
-        "Content-Type": 'application/json',
-        "Accepts": 'application/json'
-      },
-      body: JSON.stringify({
-        departure: this.state.departure,
-        arrival: this.state.arrival,
-        address: this.state.address,
-        user_trip_id: this.props.user_trips.filter(userTrip => userTrip.trip_id === this.props.tripId)[0].id,
-        cityFrom: this.state.secondCityFrom,
-        countryFrom: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityFrom)[0].country,
-        cityTo: this.state.secondCityTo,
-        countryTo: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityTo)[0].country
+    if (!this.state.departure || !this.state.arrival || !this.state.address) {
+      this.showError()
+    } else {
+      fetch('http://localhost:3000/api/v1/itineraries', {
+        method: "POST",
+        headers: {
+          "Content-Type": 'application/json',
+          "Accepts": 'application/json'
+        },
+        body: JSON.stringify({
+          departure: this.state.departure,
+          arrival: this.state.arrival,
+          address: this.state.address,
+          user_trip_id: this.props.user_trips.filter(userTrip => userTrip.trip_id === this.props.tripId)[0].id,
+          cityFrom: this.state.secondCityFrom,
+          countryFrom: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityFrom)[0].country,
+          cityTo: this.state.secondCityTo,
+          countryTo: this.props.destinations.destinations.filter(destination => destination.city === this.state.secondCityTo)[0].country
+        })
       })
-    })
-    .then(res => res.json())
-    .then(newItinerary => {
-      this.props.addItinerary(newItinerary)
+      .then(res => res.json())
+      .then(newItinerary => {
+        this.props.addItinerary(newItinerary)
 
-      this.setState({
-        showModal: false,
-        destination: null,
-        departure: '',
-        arrival: '',
-        address: '',
-        citiesFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
-        secondCityFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0],
-        citiesTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
-        secondCityTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0]
+        this.setState({
+          showModal: false,
+          destination: null,
+          departure: '',
+          arrival: '',
+          address: '',
+          citiesFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
+          secondCityFrom: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0],
+          citiesTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]],
+          secondCityTo: this.props.destinations.citiesByCountry[this.props.destinations.countries[0]][0]
+        })
       })
-    })
+    }
   }
 
   render() {
@@ -135,6 +164,7 @@ class ItineraryForm extends React.Component {
           ]}
         >
           <Form onSubmit={this.handleSubmit}>
+            {this.state.showError ? this.renderValidateStatus() : null}
             <Form.Item label="From">
               <Select
                 defaultValue={this.props.destinations.countries[0]}

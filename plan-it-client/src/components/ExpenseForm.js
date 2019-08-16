@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addExpense } from '../actions/expenseActions'
-import { Form, Input, InputNumber, Button } from 'antd'
+import { Form, Input, InputNumber, Button, Alert } from 'antd'
 
 class ExpenseForm extends React.Component {
   state ={
     item: '',
     cost: null,
-    count: null
+    count: null,
+    showError: false
   }
 
   handleItemChange = (event) => {
@@ -28,37 +29,66 @@ class ExpenseForm extends React.Component {
     })
   }
 
+  showError = () => {
+    this.setState({
+      showError: true
+    })
+  }
+
+  hideError = () => {
+    this.setState({
+      showError: false
+    })
+  }
+
+  renderValidateStatus = () => {
+    return (
+      <div>
+        <Alert message="Please fill in all fields" type="error" showIcon/>
+        <Button onClick={this.hideError}>
+          Okay boss
+        </Button>
+      </div>
+    )
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://localhost:3000/api/v1/expenses', {
-      method: "POST",
-      headers: {
-        "Content-Type": 'application/json',
-        "Aceepts": 'application/json'
-      },
-      body: JSON.stringify({
-        item: this.state.item,
-        cost: this.state.cost,
-        count: this.state.count,
-        trip_id: this.props.tripId
+    if (!this.state.item || !this.state.cost || !this.state.count) {
+      this.showError()
+    } else {
+      fetch('http://localhost:3000/api/v1/expenses', {
+        method: "POST",
+        headers: {
+          "Content-Type": 'application/json',
+          "Aceepts": 'application/json'
+        },
+        body: JSON.stringify({
+          item: this.state.item,
+          cost: this.state.cost,
+          count: this.state.count,
+          trip_id: this.props.tripId
+        })
       })
-    })
-    .then(res => res.json())
-    .then(newExpense => {
-      this.props.addExpense(this.props.tripId, newExpense)
+      .then(res => res.json())
+      .then(newExpense => {
+        this.props.addExpense(this.props.tripId, newExpense)
 
-      this.setState({
-        item: '',
-        cost: null,
-        count: null
+        this.setState({
+          item: '',
+          cost: null,
+          count: null
+        })
       })
-    })
+    }
+
   }
 
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
+        {this.state.showError ? this.renderValidateStatus() : null}
         <Form.Item label="Item">
           <Input name="item" onChange={this.handleItemChange} value={this.state.item}/>
         </Form.Item>
