@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd'
 
-class LoginForm extends React.Component {
+class LoginNav extends React.Component {
   state = {
     username: '',
     password: ''
@@ -39,10 +39,8 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div style={{ paddingTop: '16%', paddingLeft: '30%', paddingRight: '30%' }}>
-        <h1>Welcome Back, Playa</h1>
-        <h1><span role="img" aria-label="Close">🥳🐙</span></h1>
-        <Form onSubmit={this.handleSubmit}>
+      <div style={{ float: 'right', padding: '1%' }}>
+        <Form layout="inline" onSubmit={this.handleSubmit}>
           <Form.Item>
             <Input name="username" onChange={this.handleChange} value={this.state.username} placeholder="Username" />
           </Form.Item>
@@ -50,7 +48,7 @@ class LoginForm extends React.Component {
             <Input.Password name="password" onChange={this.handleChange} value={this.state.password} placeholder="Password" />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button htmlType="submit">
               Login
             </Button>
           </Form.Item>
@@ -60,4 +58,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm
+export default LoginNav
