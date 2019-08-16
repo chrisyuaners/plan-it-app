@@ -16,7 +16,17 @@ import { fetchDestinations } from './actions/destinationActions'
 
 class App extends React.Component {
   state = {
-    currentUserId: null
+    currentUserId: null,
+    loginPage: {
+      style: { paddingTop: '16%', paddingLeft: '30%', paddingRight: '30%' },
+      showText: true,
+      layout: ''
+    },
+    loginHome: {
+      style: { float: 'right', padding: '1%' },
+      showText: false,
+      layout: 'inline'
+    }
   }
 
   autoLoginUser = (user_id) => {
@@ -55,8 +65,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/" render={(routerProps) => <LandingPage {...routerProps} setUser={this.setUser} />} />
-          <Route path="/login" render={(routerProps) => <LoginForm {...routerProps} setUser={this.setUser} />} />
+          <Route exact path="/" render={(routerProps) => <LandingPage {...routerProps} setUser={this.setUser} loginProps={this.state.loginHome} />} />
+          <Route path="/login" render={(routerProps) => <LoginForm {...routerProps} setUser={this.setUser} loginProps={this.state.loginPage} />} />
           <Route path="/signup" render={(routerProps) => <SignupForm {...routerProps} setUser={this.setUser} />} />
           <Route path="/home" render={(routerProps) => <MainContainer {...routerProps} currentUserId={this.state.currentUserId} autoLoginUser={this.autoLoginUser} />} />
         </Switch>

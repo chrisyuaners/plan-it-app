@@ -1,12 +1,12 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd'
+import { Button } from 'antd'
 import { Link } from 'react-router-dom'
-import LoginNav from './LoginNav'
+import LoginForm from './LoginForm'
 
 function LandingPage(props) {
   return (
     <div style={{ backgroundColor: '#5d9cec', minHeight: '100vh'  }}>
-      <LoginNav setUser={props.setUser} />
+      <LoginForm setUser={props.setUser} loginProps={props.loginProps} />
       <img src="./plan-it.jpg" alt=""/>
       <div>
         <Link to={"/signup"}>
