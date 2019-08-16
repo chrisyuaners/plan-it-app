@@ -49,28 +49,33 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Item label="Full Name">
-          <Input name="fullName" onChange={this.handleChange} value={this.state.fullName} />
-        </Form.Item>
-        <Form.Item label="Email">
-          <Input name="email" onChange={this.handleChange} value={this.state.email} />
-        </Form.Item>
-        <Form.Item label="Username">
-          <Input name="username" onChange={this.handleChange} value={this.state.username} />
-        </Form.Item>
-        <Form.Item label="Password">
-          <Input.Password name="password" onChange={this.handleChange} value={this.state.password} />
-        </Form.Item>
-        <Form.Item label="Confirm Password">
-          <Input.Password name="passwordConfirmation" onChange={this.handleChange} value={this.state.passwordConfirmation} />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+      <div style={{ paddingTop: '7%', paddingLeft: '30%', paddingRight: '30%' }}>
+        <h1>Sign Up</h1>
+        <h3>Get hyped planning your next trip!</h3>
+        <h2><span role="img" aria-label="Close">🤠🎉</span></h2>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Item>
+            <Input name="fullName" onChange={this.handleChange} value={this.state.fullName} placeholder="Full Name" />
+          </Form.Item>
+          <Form.Item>
+            <Input name="email" onChange={this.handleChange} value={this.state.email} placeholder="Email" />
+          </Form.Item>
+          <Form.Item>
+            <Input name="username" onChange={this.handleChange} value={this.state.username} placeholder="Username" />
+          </Form.Item>
+          <Form.Item>
+            <Input.Password name="password" onChange={this.handleChange} value={this.state.password} placeholder="Password" />
+          </Form.Item>
+          <Form.Item>
+            <Input.Password name="passwordConfirmation" onChange={this.handleChange} value={this.state.passwordConfirmation} placeholder="Confirm Password" />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Start Planning
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     )
   }
 }

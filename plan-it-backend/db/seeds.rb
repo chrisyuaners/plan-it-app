@@ -14,8 +14,8 @@ Itinerary.destroy_all
 Destination.destroy_all
 ItineraryDestination.destroy_all
 
-u1 = User.create(full_name: 'Chris Yuan', email: 'chris@gmail.com', avatar: '023-tyrannosaurus rex.svg')
-u2 = User.create(full_name: 'Jun Takeda', email: 'jun@gmail.com', avatar: '027-diplodocus.svg')
+u1 = User.create(full_name: 'Chris Yuan', email: 'chris@gmail.com', avatar: '023-tyrannosaurus rex.svg', username: 'clees', password: '123')
+u2 = User.create(full_name: 'Jun Takeda', email: 'jun@gmail.com', avatar: '027-diplodocus.svg', username: 'jun', password: '123')
 
 t1 = Trip.create(start_date: '2019-08-26', end_date: '2019-08-30', title: 'End of Summer Vacation', description: 'After a long and tiring summer, time to chill out and explore Colorado.')
 t2 = Trip.create(start_date: '2019-12-20', end_date: '2019-12-30', title: 'Christmas Travels', description: 'WE ARE GOING TO JAPAN!!!')

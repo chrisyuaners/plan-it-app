@@ -13,8 +13,7 @@ class Api::V1::UsersController < ApplicationController
     # byebug
     user = User.new(full_name: params[:full_name], email: params[:email], username: params[:username], password: params[:password])
     if user.save
-      token = encode_token(user.id)
-      render json: {user: user, token: token}
+      render json: user
     else
       render json: {errors: user.errors.full_messages}
     end
