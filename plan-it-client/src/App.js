@@ -68,7 +68,7 @@ class App extends React.Component {
           <Route exact path="/" render={(routerProps) => <LandingPage {...routerProps} setUser={this.setUser} loginProps={this.state.loginHome} />} />
           <Route path="/login" render={(routerProps) => <LoginForm {...routerProps} setUser={this.setUser} loginProps={this.state.loginPage} />} />
           <Route path="/signup" render={(routerProps) => <SignupForm {...routerProps} setUser={this.setUser} />} />
-          <Route path="/home" render={(routerProps) => <MainContainer {...routerProps} currentUserId={this.state.currentUserId} autoLoginUser={this.autoLoginUser} />} />
+          <Route path="/home" render={(routerProps) => <MainContainer {...routerProps} currentUserId={this.state.currentUserId} autoLoginUser={this.autoLoginUser} logout={this.logout} />} />
         </Switch>
       </div>
     )

@@ -11,6 +11,9 @@ class TripCard extends React.Component {
   }
 
   removeTrip = () => {
+    const userTripId = this.props.userTrips.filter(userTrip => userTrip.trip_id === this.props.selectedTrip)[0].id
+    console.log(userTripId)
+
     fetch(`http://localhost:3000/api/v1/trips/${this.props.selectedTrip}`, {
       method: "DELETE",
       headers: {
@@ -18,14 +21,16 @@ class TripCard extends React.Component {
         "Accepts": 'application/json'
       },
       body: JSON.stringify({
-        id: this.props.selectedTrip
+        id: this.props.selectedTrip,
+        userTripId: userTripId
       })
     })
     .then(res => res.json())
-    .then(trip => {
-      this.props.showDeleteMessage()
-      this.props.setSelectedTripToNull()
-      this.props.removeTrip(trip.id)
+    .then(response => {
+      console.log(response)
+      // this.props.showDeleteMessage()
+      // this.props.setSelectedTripToNull()
+      // this.props.removeTrip(trip.id)
     })
   }
 
@@ -80,9 +85,11 @@ class TripCard extends React.Component {
         <Card
           actions={[
             <Icon type="edit" key="edit" onClick={this.showModal} />,
-            <Popconfirm title="Delete this trip?" onConfirm={this.removeTrip} cancelText="No">
-              <Icon type="delete" key="delete"/>
-            </Popconfirm>,
+            <div>
+              {trip.creator_id === parseInt(this.props.currentUserId) ? <Popconfirm title="Delete this trip?" onConfirm={this.removeTrip} cancelText="No">
+                <Icon type="delete" key="delete"/>
+              </Popconfirm> : <Icon type="heart" theme="twoTone" twoToneColor="#eb2f96" />}
+            </div>
           ]}
         >
           <Title>{trip.title}</Title>
@@ -120,7 +127,8 @@ class TripCard extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.trips
+    trips: state.trips,
+    userTrips: state.currentUser.user_trips
   }
 }
 

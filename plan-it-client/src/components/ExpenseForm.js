@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addExpense } from '../actions/expenseActions'
-import { Form, Input, InputNumber, Button, Alert } from 'antd'
+import { Form, Input, InputNumber, Button, Alert, Modal } from 'antd'
 
 class ExpenseForm extends React.Component {
   state ={
+    showModal: false,
     item: '',
     cost: null,
     count: null,
@@ -26,6 +27,18 @@ class ExpenseForm extends React.Component {
   handleCountChange = (value) => {
     this.setState({
       count: value
+    })
+  }
+
+  showModal = () => {
+    this.setState({
+      showModal: true,
+    })
+  }
+
+  hideModal = () => {
+    this.setState({
+      showModal: false,
     })
   }
 
@@ -87,23 +100,40 @@ class ExpenseForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        {this.state.showError ? this.renderValidateStatus() : null}
-        <Form.Item label="Item">
-          <Input name="item" onChange={this.handleItemChange} value={this.state.item}/>
-        </Form.Item>
-        <Form.Item label="Cost">
-          <InputNumber name="cost" onChange={this.handleCostChange} value={this.state.cost} formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}/>
-        </Form.Item>
-        <Form.Item label="Count">
-          <InputNumber name="count" onChange={this.handleCountChange} value={this.state.count}/>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Add
-          </Button>
-        </Form.Item>
-      </Form>
+      <div>
+        <Button type="primary" onClick={this.showModal}>
+          Add
+        </Button>
+        <Modal
+          title="Edit Trip"
+          visible={this.state.showModal}
+          onOk={null}
+          onCancel={this.hideModal}
+          footer={[
+            <Button key="back" onClick={this.hideModal} type="danger">
+              Cancel
+            </Button>
+          ]}
+        >
+        <Form onSubmit={this.handleSubmit}>
+          {this.state.showError ? this.renderValidateStatus() : null}
+          <Form.Item label="Item">
+            <Input name="item" onChange={this.handleItemChange} value={this.state.item}/>
+          </Form.Item>
+          <Form.Item label="Cost">
+            <InputNumber name="cost" onChange={this.handleCostChange} value={this.state.cost} formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}/>
+          </Form.Item>
+          <Form.Item label="Count">
+            <InputNumber name="count" onChange={this.handleCountChange} value={this.state.count}/>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Add
+            </Button>
+          </Form.Item>
+        </Form>
+        </Modal>
+      </div>
     )
   }
 }

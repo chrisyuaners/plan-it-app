@@ -14,8 +14,8 @@ class MainContainer extends React.Component {
   render() {
     return (
       <div>
-        <NavBar />
-        <TripContainer />
+        <NavBar logout={this.props.logout} />
+        <TripContainer currentUserId={this.props.currentUserId} />
       </div>
     )
   }

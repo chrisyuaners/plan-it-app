@@ -11,7 +11,7 @@ import { Layout, Empty, Button, Alert, Modal } from 'antd'
 
 class TripContainer extends React.Component {
   state = {
-    selectedTrip: null,
+    selectedTrip: 0,
     showTripForm: false,
     showDeleteMessage: false
   }
@@ -66,6 +66,7 @@ class TripContainer extends React.Component {
             selectedTrip={this.state.selectedTrip}
             setSelectedTripToNull={this.setSelectedTripToNull}
             showDeleteMessage={this.showDeleteMessage}
+            currentUserId={this.props.currentUserId}
           />
         </div>
         <div>

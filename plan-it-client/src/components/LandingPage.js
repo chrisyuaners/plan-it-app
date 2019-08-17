@@ -11,7 +11,7 @@ function LandingPage(props) {
       <div>
         <Link to={"/signup"}>
           <Button>
-            Get Started
+            Get Started <span role="img" aria-label="Close">🏄</span>‍
           </Button>
         </Link>
       </div>
