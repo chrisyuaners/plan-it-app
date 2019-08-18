@@ -6,7 +6,7 @@ import ItineraryForm from '../components/ItineraryForm'
 
 function ItineraryList(props) {
   const userItinerary = props.itineraries.filter(itinerary => itinerary.user_trip.trip_id === props.selectedTrip)
-
+  
   function renderItineraries() {
     return (
       <Card title="Itinerary" style={{ width: '100%' }}>

@@ -1,4 +1,4 @@
-const defaultState = []
+const defaultState = null
 
 function destinationReducer(state=defaultState, action) {
   switch(action.type) {

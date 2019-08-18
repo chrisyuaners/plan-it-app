@@ -9,7 +9,7 @@ function TodoList(props) {
 
   function renderTodos() {
     return (
-      <Card title="Todos" style={{ width: '100%' }}>
+      <Card title="Todos" style={{ width: '130%' }}>
         <List
           itemLayout="horizontal"
           dataSource={tripTodos.todos}

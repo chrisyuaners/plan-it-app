@@ -10,7 +10,6 @@ class NavBar extends React.Component {
   };
 
   handleClick = e => {
-    console.log('click ', e);
     this.setState({
       current: e.key,
     });
@@ -26,8 +25,10 @@ class NavBar extends React.Component {
           </Link>
         </Menu.Item>
         <Menu.Item key="user">
-          <Icon type="user" />
-          Profile
+          <Link to={"/home/profile"}>
+            <Icon type="user" />
+            Profile
+          </Link>
         </Menu.Item>
         <SubMenu
           title={

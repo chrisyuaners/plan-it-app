@@ -34,12 +34,12 @@ class App extends React.Component {
       currentUserId: user_id
     }, () => {
       this.props.fetchUser(this.state.currentUserId)
-      this.props.fetchDestinations()
       this.props.fetchTrips(this.state.currentUserId)
-      this.props.fetchItineraries(this.state.currentUserId)
-      this.props.fetchComments(this.state.currentUserId)
+      this.props.fetchDestinations()
       this.props.fetchTodos(this.state.currentUserId)
       this.props.fetchExpenses(this.state.currentUserId)
+      this.props.fetchComments(this.state.currentUserId)
+      this.props.fetchItineraries(this.state.currentUserId)
     })
   }
 
@@ -48,7 +48,7 @@ class App extends React.Component {
       currentUserId: user.id
     }, () => {
       localStorage.user_id = user.id
-      this.props.history.push("/home")
+      this.props.history.push("/app/home")
     })
   }
 
@@ -68,7 +68,7 @@ class App extends React.Component {
           <Route exact path="/" render={(routerProps) => <LandingPage {...routerProps} setUser={this.setUser} loginProps={this.state.loginHome} />} />
           <Route path="/login" render={(routerProps) => <LoginForm {...routerProps} setUser={this.setUser} loginProps={this.state.loginPage} />} />
           <Route path="/signup" render={(routerProps) => <SignupForm {...routerProps} setUser={this.setUser} />} />
-          <Route path="/home" render={(routerProps) => <MainContainer {...routerProps} currentUserId={this.state.currentUserId} autoLoginUser={this.autoLoginUser} logout={this.logout} />} />
+          <Route path="/home" render={(routerProps) => <MainContainer {...routerProps} autoLoginUser={this.autoLoginUser} logout={this.logout} />} />
         </Switch>
       </div>
     )

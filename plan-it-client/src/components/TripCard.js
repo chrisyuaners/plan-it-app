@@ -52,7 +52,7 @@ class TripCard extends React.Component {
     })
   }
 
-  handleSubmit = (event) => {
+  editTrip = (event) => {
     event.preventDefault()
 
     fetch(`http://localhost:3000/api/v1/trips/${this.props.selectedTrip}`, {
@@ -105,7 +105,7 @@ class TripCard extends React.Component {
               </Button>
             ]}
           >
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.editTrip}>
               <Form.Item label="Title">
                 <Input name="title" onChange={this.handleChange} value={this.state.title} />
               </Form.Item>
@@ -127,6 +127,7 @@ class TripCard extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    currentUserId: state.currentUser.id,
     trips: state.trips,
     userTrips: state.currentUser.user_trips
   }

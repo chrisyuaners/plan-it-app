@@ -69,16 +69,16 @@ class TripContainer extends React.Component {
             currentUserId={this.props.currentUserId}
           />
         </div>
-        <div>
-          <div>
-            <UserList selectedTrip={this.state.selectedTrip} />
+        <div style={{ padding: '1%' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-around', padding: '1%' }}>
             <ItineraryList selectedTrip={this.state.selectedTrip} />
           </div>
-          <div>
+          <div style={{ display: 'flex', justifyContent: 'space-around', padding: '1%' }}>
             <ExpenseList selectedTrip={this.state.selectedTrip} />
             <TodoList selectedTrip={this.state.selectedTrip} />
           </div>
-          <div>
+          <div style={{ display: 'flex', justifyContent: 'space-around', padding: '1%' }}>
+            <UserList selectedTrip={this.state.selectedTrip} />
             <CommentList selectedTrip={this.state.selectedTrip} />
           </div>
         </div>

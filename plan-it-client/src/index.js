@@ -17,12 +17,12 @@ import * as serviceWorker from './serviceWorker'
 
 const rootReducer = combineReducers({
   currentUser: userReducer,
-  destinations: destinationReducer,
   trips: tripReducer,
-  itineraries: itineraryReducer,
-  comments: commentReducer,
+  destinations: destinationReducer,
   todos: todoReducer,
-  expenses: expenseReducer
+  expenses: expenseReducer,
+  comments: commentReducer,
+  itineraries: itineraryReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

@@ -105,7 +105,7 @@ class ExpenseForm extends React.Component {
           Add
         </Button>
         <Modal
-          title="Edit Trip"
+          title="New Expense"
           visible={this.state.showModal}
           onOk={null}
           onCancel={this.hideModal}
