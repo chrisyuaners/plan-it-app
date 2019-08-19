@@ -7,7 +7,7 @@ import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
 import MainContainer from './containers/MainContainer'
 import { fetchTrips } from './actions/tripActions'
-import { fetchUser } from './actions/userActions'
+import { setUser } from './actions/userActions'
 import { fetchItineraries } from './actions/itineraryActions'
 import { fetchTodos } from './actions/todoActions'
 import { fetchComments } from './actions/commentActions'
@@ -33,13 +33,9 @@ class App extends React.Component {
     this.setState({
       currentUserId: user_id
     }, () => {
-      this.props.fetchUser(this.state.currentUserId)
+      this.props.setUser(this.state.currentUserId)
       this.props.fetchTrips(this.state.currentUserId)
       this.props.fetchDestinations()
-      this.props.fetchTodos(this.state.currentUserId)
-      this.props.fetchExpenses(this.state.currentUserId)
-      this.props.fetchComments(this.state.currentUserId)
-      this.props.fetchItineraries(this.state.currentUserId)
     })
   }
 
@@ -48,7 +44,7 @@ class App extends React.Component {
       currentUserId: user.id
     }, () => {
       localStorage.user_id = user.id
-      this.props.history.push("/app/home")
+      this.props.history.push("/home")
     })
   }
 
@@ -75,4 +71,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {fetchTrips: fetchTrips, fetchItineraries: fetchItineraries, fetchUser: fetchUser, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses, fetchDestinations: fetchDestinations})(App)
+export default connect(null, {fetchTrips: fetchTrips, fetchItineraries: fetchItineraries, setUser: setUser, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses, fetchDestinations: fetchDestinations})(App)

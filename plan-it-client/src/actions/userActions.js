@@ -1,21 +1,18 @@
 function setUser(userId) {
   return {
     type: 'SET_USER',
-    currentUser: parseInt(userId)
+    currentUserId: parseInt(userId)
   }
 }
 
-function fetchUser(userId) {
-  return function(dispatch) {
-    fetch(`http://localhost:3000/api/v1/users/${userId}`)
-    .then(res => res.json())
-    .then(user => {
-      dispatch({type: 'FETCH_USER', currentUser: {id: user.id, name: user.full_name, email: user.email, avatar: user.avatar, user_trips: user.user_trips}})
-    })
+function addUserTrip(userTrip) {
+  return {
+    type: 'ADD_USER_TRIP',
+    userTrip: userTrip
   }
 }
 
 export {
   setUser,
-  fetchUser
+  addUserTrip
 }

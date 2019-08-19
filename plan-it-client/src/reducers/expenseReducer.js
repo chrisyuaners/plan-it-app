@@ -1,9 +1,9 @@
-const defaultState = []
+const defaultState = {}
 
 function expenseReducer(state=defaultState, action) {
   switch(action.type) {
-    case 'FETCH_EXPENSES':
-      return action.expenses
+    case 'FETCH_TRIPS':
+      return action.normalizedData.entities.expenses
     case 'ADD_EXPENSE':
       const addToTripExpenses = [...state].filter(tripExpense => tripExpense.tripId === action.tripId)[0]
 

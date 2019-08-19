@@ -26,11 +26,10 @@ class TripCard extends React.Component {
       })
     })
     .then(res => res.json())
-    .then(response => {
-      console.log(response)
-      // this.props.showDeleteMessage()
-      // this.props.setSelectedTripToNull()
-      // this.props.removeTrip(trip.id)
+    .then(trip => {
+      this.props.showDeleteMessage()
+      this.props.setSelectedTripToNull()
+      this.props.removeTrip(trip.id)
     })
   }
 
@@ -126,10 +125,12 @@ class TripCard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const trips = state.result.map(result => state.trips[result])
+  const userTrips = state.users[state.currentUserId].user_trips.map(userTrip => state.userTrips[userTrip])
   return {
-    currentUserId: state.currentUser.id,
-    trips: state.trips,
-    userTrips: state.currentUser.user_trips
+    currentUserId: state.currentUserId,
+    trips: trips,
+    userTrips: userTrips
   }
 }
 

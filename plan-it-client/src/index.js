@@ -10,19 +10,27 @@ import commentReducer from './reducers/commentReducer'
 import todoReducer from './reducers/todoReducer'
 import expenseReducer from './reducers/expenseReducer'
 import itineraryReducer from './reducers/itineraryReducer'
+import userTripReducer from './reducers/userTripReducer'
+import itineraryDestinationReducer from './reducers/itineraryDestinationReducer'
+import resultReducer from './reducers/resultReducer'
+import userIdReducer from './reducers/userIdReducer'
 import thunk from 'redux-thunk'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 const rootReducer = combineReducers({
-  currentUser: userReducer,
+  currentUserId: userIdReducer,
+  users: userReducer,
   trips: tripReducer,
-  destinations: destinationReducer,
   todos: todoReducer,
   expenses: expenseReducer,
   comments: commentReducer,
-  itineraries: itineraryReducer
+  itineraries: itineraryReducer,
+  userTrips: userTripReducer,
+  itineraryDestinations: itineraryDestinationReducer,
+  destinations: destinationReducer,
+  result: resultReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

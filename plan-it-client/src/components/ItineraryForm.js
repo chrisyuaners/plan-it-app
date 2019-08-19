@@ -207,10 +207,10 @@ class ItineraryForm extends React.Component {
               </Select>
             </Form.Item>
             <Form.Item label="Departure">
-              <DatePicker showTime name="departure" onChange={this.handleDepartureChange} />
+              <DatePicker showTime defaultValue={''} name="departure" onChange={this.handleDepartureChange} />
             </Form.Item>
             <Form.Item label="Arrival">
-              <DatePicker showTime name="arrival" onChange={this.handleArrivalChange} />
+              <DatePicker showTime defaultValue={''} name="arrival" onChange={this.handleArrivalChange} />
             </Form.Item>
             <Form.Item label="Address">
               <AlgoliaPlaces
@@ -241,7 +241,7 @@ class ItineraryForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user_trips: state.currentUser.user_trips,
+    user_trips: state.users[state.currentUserId].user_trips.map(userTrip => state.userTrips[userTrip]),
     destinations: state.destinations
   }
 }

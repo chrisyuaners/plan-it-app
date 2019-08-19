@@ -13,7 +13,8 @@ class Api::V1::TripsController < ApplicationController
     creator = User.find(trip_params[:creator_id])
     trip = Trip.create(trip_params)
     trip.users.push(creator)
-    render json: trip
+    userTrip = UserTrip.find(trip.id)
+    render json: {trip: trip, userTrip: userTrip}
   end
 
   def update
@@ -24,6 +25,8 @@ class Api::V1::TripsController < ApplicationController
 
   def destroy
     trip = Trip.find(params[:id])
+    itineraries = Itinerary.select {|itin| itin.user_trip_id == params[:userTripId]}
+    itineraries.each {|itin| itin.destroy}
     trip.destroy
     render json: trip
   end

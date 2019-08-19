@@ -40,7 +40,9 @@ class NavBar extends React.Component {
         >
           <Menu.ItemGroup>
             <Menu.Item key="setting:1">
-              Edit Profile
+              <Link to={"/home/profile/edit"}>
+                Edit Profile
+              </Link>
             </Menu.Item>
             <Menu.Item key="setting:2" onClick={this.props.logout}>
               Logout

@@ -1,9 +1,9 @@
-const defaultState = []
+const defaultState = {}
 
 function itineraryReducer(state=defaultState, action){
   switch(action.type) {
-    case 'FETCH_ITINERARIES':
-      return action.itineraries
+    case 'FETCH_TRIPS':
+      return action.normalizedData.entities.itineraries
     case 'ADD_ITINERARY':
       const addToItineraries = [...state]
 

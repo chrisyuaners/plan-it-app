@@ -1,9 +1,9 @@
-const defaultState = []
+const defaultState = {}
 
 function tripReducer(state = defaultState, action) {
   switch(action.type) {
     case 'FETCH_TRIPS':
-      return action.trips
+      return action.normalizedData.entities.trips
     case 'ADD_TRIP':
       return [...state, action.newTrip]
     case 'REMOVE_TRIP':
@@ -16,7 +16,7 @@ function tripReducer(state = defaultState, action) {
           return trip
         }
       })
-      
+
       return updatedTrips
     default:
       return state

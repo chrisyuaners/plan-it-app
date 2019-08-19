@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_134319) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "author"
+    t.integer "author_id"
     t.index ["trip_id"], name: "index_comments_on_trip_id"
   end
 

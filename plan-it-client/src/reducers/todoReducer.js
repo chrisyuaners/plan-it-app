@@ -1,9 +1,9 @@
-const defaultState = []
+const defaultState = {}
 
 function todoReducer(state=defaultState, action) {
   switch(action.type) {
-    case 'FETCH_TODOS':
-      return action.todos
+    case 'FETCH_TRIPS':
+      return action.normalizedData.entities.todos
     case 'ADD_TODO':
       const addToTripTodos = [...state].filter(tripTodo => tripTodo.tripId === action.tripId)[0]
 

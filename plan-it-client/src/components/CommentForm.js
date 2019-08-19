@@ -53,7 +53,7 @@ class CommentForm extends React.Component {
         body: JSON.stringify({
           content: this.state.newComment,
           trip_id: this.props.tripId,
-          author: this.props.currentUser.name
+          author_id: this.props.currentUser
         })
       })
       .then(res => res.json())
@@ -86,4 +86,10 @@ class CommentForm extends React.Component {
   }
 }
 
-export default connect(null, {addComment: addComment})(CommentForm)
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUserId
+  }
+}
+
+export default connect(mapStateToProps, {addComment: addComment})(CommentForm)

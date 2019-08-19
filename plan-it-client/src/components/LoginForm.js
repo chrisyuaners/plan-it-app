@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
           <h1><span role="img" aria-label="Close">🥳🐙</span></h1>
         </div>
         : null}
-        <Form layout={this.props.loginProps.layout} onSubmit={this.handleSubmit}>
+        <Form layout={this.props.loginProps.layout || 'horizontal'} onSubmit={this.handleSubmit}>
           <Form.Item>
             <Input name="username" onChange={this.handleChange} value={this.state.username} placeholder="Username" />
           </Form.Item>

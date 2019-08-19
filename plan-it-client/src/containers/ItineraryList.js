@@ -5,14 +5,15 @@ import ItineraryListItem from '../components/ItineraryListItem'
 import ItineraryForm from '../components/ItineraryForm'
 
 function ItineraryList(props) {
-  const userItinerary = props.itineraries.filter(itinerary => itinerary.user_trip.trip_id === props.selectedTrip)
-  
+  const currentUserTrip = props.userTrips.filter(userTrip => userTrip.trip_id === props.selectedTrip)[0]
+  const userItineraries = props.itineraries.filter(itin => itin.user_trip_id === currentUserTrip.id)
+
   function renderItineraries() {
     return (
       <Card title="Itinerary" style={{ width: '100%' }}>
         <List
           itemLayout="horizontal"
-          dataSource={userItinerary}
+          dataSource={userItineraries}
           renderItem={itinerary => (
             <ItineraryListItem key={itinerary.id} itinerary={itinerary} tripId={props.selectedTrip}/>
           )}
@@ -30,8 +31,12 @@ function ItineraryList(props) {
 }
 
 const mapStateToProps = (state) => {
+  const userItineraries = state.users[state.currentUserId].itineraries.map(itin => state.itineraries[itin])
+  const userTrips = state.users[state.currentUserId].user_trips.map(userTrip => state.userTrips[userTrip])
+
   return {
-    itineraries: state.itineraries
+    itineraries: userItineraries,
+    userTrips: userTrips
   }
 }
 

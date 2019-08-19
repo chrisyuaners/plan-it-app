@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { List, Card } from 'antd'
 
 function ExpenseList(props) {
-  const tripExpenses = props.expenses.filter(expense => expense.tripId === props.selectedTrip)[0]
+  const currentTripExpenses = props.trips[props.selectedTrip].expenses.map(expense => props.expenses[expense])
 
   const reducer = (total, expense) => total + expense
   const numberFormat = (value) =>
@@ -19,12 +19,12 @@ function ExpenseList(props) {
       <Card title="Expenses" style={{ width: '150%' }}>
         <List
           itemLayout="horizontal"
-          dataSource={tripExpenses.expenses}
+          dataSource={currentTripExpenses}
           renderItem={expense => (
             <ExpenseListItem key={expense.id} expense={expense} tripId={props.selectedTrip} />
           )}
         />
-        {tripExpenses.expenses.length > 0 ? <p>Total: {numberFormat(tripExpenses.expenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p> : null}
+        {currentTripExpenses.length > 0 ? <p>Total: {numberFormat(currentTripExpenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p> : null}
         <ExpenseForm tripId={props.selectedTrip} />
       </Card>
     )
@@ -39,7 +39,8 @@ function ExpenseList(props) {
 
 const mapStateToProps = (state) => {
   return {
-    expenses: state.expenses
+    expenses: state.expenses,
+    trips: state.trips
   }
 }
 

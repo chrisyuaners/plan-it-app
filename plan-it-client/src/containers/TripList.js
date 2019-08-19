@@ -4,11 +4,6 @@ import TripListItem from '../components/TripListItem'
 import { List } from 'antd'
 
 function TripList(props) {
-  // const data = props.tripData || {}
-  // const userTrips = data.users
-  // const trips = data.trips
-  // console.log(trips, userTrips)
-
   function renderTrips() {
     return (
       <List
@@ -29,8 +24,9 @@ function TripList(props) {
 }
 
 const mapStateToProps = (state) => {
+  const trips = state.result.map(result => state.trips[result])
   return {
-    trips: state.trips
+    trips: trips
   }
 }
 
