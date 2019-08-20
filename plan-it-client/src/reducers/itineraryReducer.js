@@ -3,7 +3,11 @@ const defaultState = {}
 function itineraryReducer(state=defaultState, action){
   switch(action.type) {
     case 'FETCH_TRIPS':
-      return action.normalizedData.entities.itineraries
+    let itineraryData = action.normalizedData.entities.itineraries
+    if (!itineraryData) {
+      itineraryData = {}
+    }
+    return itineraryData
     case 'ADD_ITINERARY':
       const addToItineraries = [...state]
 

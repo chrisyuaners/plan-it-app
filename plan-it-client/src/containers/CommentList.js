@@ -6,7 +6,6 @@ import { List, Card } from 'antd'
 
 function CommentList(props) {
   const currentTripComments = props.trips[props.selectedTrip].comments.map(comment => props.comments[comment])
-  console.log(currentTripComments)
 
   return (
     <Card title="Comments" style={{ width: '100%' }}>

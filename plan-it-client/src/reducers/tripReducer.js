@@ -3,9 +3,15 @@ const defaultState = {}
 function tripReducer(state = defaultState, action) {
   switch(action.type) {
     case 'FETCH_TRIPS':
-      return action.normalizedData.entities.trips
+      let tripData = action.normalizedData.entities.trips
+      if (!tripData) {
+        tripData = {}
+      }
+      return tripData
     case 'ADD_TRIP':
-      return [...state, action.newTrip]
+      const tripCreatorId = action.newTrip.users[0].id
+      const normalizedTrip = {...action.newTrip, users: [tripCreatorId]}
+      return {...state, [action.newTrip.id]: normalizedTrip}
     case 'REMOVE_TRIP':
       return [...state].filter(trip => trip.id !== action.tripId)
     case 'EDIT_TRIP':

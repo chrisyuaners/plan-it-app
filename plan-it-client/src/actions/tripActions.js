@@ -27,7 +27,7 @@ function fetchTrips(userId) {
       })
       const tripList = [trip]
       const normalizedData = normalize(tripData, tripList)
-      dispatch({type: 'FETCH_TRIPS', trips: trips, normalizedData: normalizedData})
+      dispatch({type: 'FETCH_TRIPS', trips: trips, normalizedData: {...normalizedData}})
     })
   }
 }

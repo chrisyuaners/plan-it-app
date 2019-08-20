@@ -13,8 +13,8 @@ class Api::V1::TripsController < ApplicationController
     creator = User.find(trip_params[:creator_id])
     trip = Trip.create(trip_params)
     trip.users.push(creator)
-    userTrip = UserTrip.find(trip.id)
-    render json: {trip: trip, userTrip: userTrip}
+    userTrip = UserTrip.where(trip_id: trip.id)
+    render json: {trip: TripSerializer.new(trip), user_trip: userTrip}
   end
 
   def update

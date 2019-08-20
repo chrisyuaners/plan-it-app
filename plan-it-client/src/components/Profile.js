@@ -7,11 +7,11 @@ function Profile(props) {
     <div>
       <div>
         <Avatar size={86} src={`/icons/${props.currentUser.avatar}`} />
-        <h1>{props.currentUser.name}</h1>
+        <h1>{props.currentUser.full_name}</h1>
         <h2>{props.currentUser.email}</h2>
       </div>
       <div>
-        
+
       </div>
     </div>
   )
@@ -19,7 +19,7 @@ function Profile(props) {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.users[state.currentUserId]
   }
 }
 

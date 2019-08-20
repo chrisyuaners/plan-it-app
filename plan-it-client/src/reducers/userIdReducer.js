@@ -1,4 +1,4 @@
-const defaultState = 0
+const defaultState = null
 
 function userIdReducer(state=defaultState, action) {
   switch(action.type) {

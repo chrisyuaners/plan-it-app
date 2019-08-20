@@ -1,9 +1,13 @@
-const defaultState = []
+const defaultState = {}
 
 function commentReducer(state=defaultState, action) {
   switch(action.type) {
     case 'FETCH_TRIPS':
-      return action.normalizedData.entities.comments
+      let commentData = action.normalizedData.entities.comments
+      if (!commentData) {
+        commentData = {}
+      }
+      return commentData
     case 'ADD_COMMENT':
       const tripComments = [...state].filter(tripComment => tripComment.tripId === action.tripId)[0]
 

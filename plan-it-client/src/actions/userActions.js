@@ -5,14 +5,6 @@ function setUser(userId) {
   }
 }
 
-function addUserTrip(userTrip) {
-  return {
-    type: 'ADD_USER_TRIP',
-    userTrip: userTrip
-  }
-}
-
 export {
-  setUser,
-  addUserTrip
+  setUser
 }

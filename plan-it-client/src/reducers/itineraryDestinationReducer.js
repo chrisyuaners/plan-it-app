@@ -3,7 +3,11 @@ const defaultState = {}
 function itineraryDestinationReducer(state=defaultState, action) {
   switch(action.type) {
     case 'FETCH_TRIPS':
-      return action.normalizedData.entities.itinerary_destinations
+    let itineraryDestinationData = action.normalizedData.entities.itinerary_destinations
+    if (!itineraryDestinationData) {
+      itineraryDestinationData = {}
+    }
+    return itineraryDestinationData
     default:
       return state
   }

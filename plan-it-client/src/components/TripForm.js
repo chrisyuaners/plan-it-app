@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { addTrip } from '../actions/tripActions'
 import { Form, Button, Input, DatePicker, Alert } from 'antd'
 import { fetchTodos } from '../actions/todoActions'
-import { addUserTrip } from '../actions/userActions'
+import { addUserTrip } from '../actions/userTripActions'
 import { fetchComments } from '../actions/commentActions'
 import { fetchExpenses } from '../actions/expenseActions'
 
@@ -70,16 +70,15 @@ class TripForm extends React.Component {
           description: this.state.description,
           start_date: this.state.start_date,
           end_date: this.state.end_date,
-          creator_id: this.props.currentUser.id
+          creator_id: this.props.currentUserId
         })
       })
       .then(res => res.json())
       .then(newTrip => {
+        debugger
+        console.log(newTrip)
         this.props.addTrip(newTrip.trip)
-        this.props.addUserTrip(newTrip.userTrip)
-        this.props.fetchTodos(this.props.currentUser.id)
-        this.props.fetchComments(this.props.currentUser.id)
-        this.props.fetchExpenses(this.props.currentUser.id)
+        // this.props.addUserTrip(newTrip.user_trip)
 
         this.setState({
           title: '',
@@ -123,7 +122,7 @@ class TripForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUserId: state.currentUserId
   }
 }
 
