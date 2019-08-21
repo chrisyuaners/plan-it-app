@@ -23,8 +23,8 @@ function ItineraryListItem(props) {
       })
     })
     .then(res => res.json())
-    .then(itinerary => {
-      props.removeItinerary(itinerary.id)
+    .then(removeItinerary => {
+      props.removeItinerary(removeItinerary, props.currentUserId)
     })
   }
 
@@ -44,7 +44,8 @@ const mapStateToProps = (state) => {
 
   return {
     destinations: state.destinations.destinations,
-    userItineraryDestinations: userItineraryDestinations
+    userItineraryDestinations: userItineraryDestinations,
+    currentUserId: state.currentUserId
   }
 }
 

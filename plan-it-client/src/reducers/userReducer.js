@@ -32,6 +32,35 @@ function userReducer(state=defaultState, action) {
       users[action.userId].trips.push(action.tripId)
       users[action.userId].user_trips.push(action.userTripId)
       return {...state, [action.userId]: users[action.userId]}
+    case 'ADD_ITINERARY':
+      const userToAddItin = {...state}
+      const addItin = {...userToAddItin[action.currentUserId]}
+
+      addItin.itineraries.push(action.newItinerary.itinerary.id)
+      action.newItinerary.itinerary_destinations.forEach(itinDes => {
+        addItin.itinerary_destinations.push(itinDes.id)
+      })
+
+      const addedItinToUser = {
+        [addItin.id]: addItin
+      }
+
+      return {...state, ...addedItinToUser}
+    case 'REMOVE_ITINERARY':
+      const userToRemoveItin = {...state}
+      const removeItin = {...userToRemoveItin[action.currentUserId]}
+
+      removeItin.itineraries = userToRemoveItin[action.currentUserId].itineraries.filter(itin => itin !== action.itinerary.itinerary.id)
+
+      const itinDesIds = action.itinerary.itinerary_destinations.map(itinDes => itinDes.id)
+
+      removeItin.itinerary_destinations = userToRemoveItin[action.currentUserId].itinerary_destinations.filter(itinDes => !itinDesIds.includes(itinDes))
+
+      const removedItinFromUser = {
+        [removeItin.id]: removeItin
+      }
+    
+      return {...state, ...removedItinFromUser}
     default:
       return state
   }

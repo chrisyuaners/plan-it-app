@@ -15,6 +15,22 @@ function itineraryDestinationReducer(state=defaultState, action) {
       itinDesToDelete.map(itinDes => delete itinDesForRemoval[itinDes])
 
       return itinDesForRemoval
+    case 'ADD_ITINERARY':
+      const addToItinDestinations = {...state}
+
+      action.newItinerary.itinerary_destinations.forEach(itinDes => {
+        addToItinDestinations[itinDes.id] = itinDes
+      })
+
+      return addToItinDestinations
+    case 'REMOVE_ITINERARY':
+      const removeFromItinDestinations = {...state}
+
+      action.itinerary.itinerary_destinations.forEach(itinDes => {
+        delete removeFromItinDestinations[itinDes.id]
+      })
+
+      return removeFromItinDestinations
     default:
       return state
   }

@@ -128,7 +128,7 @@ class ItineraryForm extends React.Component {
       })
       .then(res => res.json())
       .then(newItinerary => {
-        this.props.addItinerary(newItinerary)
+        this.props.addItinerary(newItinerary, this.props.currentUserId)
 
         this.setState({
           showModal: false,
@@ -242,7 +242,8 @@ class ItineraryForm extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user_trips: state.users[state.currentUserId].user_trips.map(userTrip => state.userTrips[userTrip]),
-    destinations: state.destinations
+    destinations: state.destinations,
+    currentUserId: state.currentUserId
   }
 }
 

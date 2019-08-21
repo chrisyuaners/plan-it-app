@@ -16,14 +16,16 @@ function itineraryReducer(state=defaultState, action){
 
       return itinerariesForRemoval
     case 'ADD_ITINERARY':
-      const addToItineraries = [...state]
+      const addToItineraries = {...state}
 
-      addToItineraries.push(action.newItinerary)
+      addToItineraries[action.newItinerary.itinerary.id] = action.newItinerary.itinerary
 
       return addToItineraries
     case 'REMOVE_ITINERARY':
-      const removeFromItineraries = [...state].filter(itinerary => itinerary.id !== action.itineraryId)
+      const removeFromItineraries = {...state}
 
+      delete removeFromItineraries[action.itinerary.itinerary.id]
+    
       return removeFromItineraries
     default:
       return state

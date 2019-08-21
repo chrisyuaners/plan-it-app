@@ -8,17 +8,19 @@ function fetchItineraries(userId) {
   }
 }
 
-function addItinerary(newItinerary) {
+function addItinerary(newItinerary, currentUserId) {
   return {
     type: 'ADD_ITINERARY',
-    newItinerary: newItinerary
+    newItinerary: newItinerary,
+    currentUserId: currentUserId
   }
 }
 
-function removeItinerary(itineraryId) {
+function removeItinerary(itinerary, currentUserId) {
   return {
     type: 'REMOVE_ITINERARY',
-    itineraryId: itineraryId
+    itinerary: itinerary,
+    currentUserId: currentUserId
   }
 }
 
