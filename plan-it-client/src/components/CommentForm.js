@@ -58,7 +58,6 @@ class CommentForm extends React.Component {
       })
       .then(res => res.json())
       .then(response => {
-        debugger
         this.props.addComment(response.comment)
 
         this.setState({

@@ -14,6 +14,10 @@ function userTripReducer(state=defaultState, action) {
       const userTripToAddItin = {...state}
       const addItin = {...userTripToAddItin[action.newItinerary.itinerary.user_trip_id]}
 
+      if (!addItin.itineraries) {
+        addItin.itineraries = []
+      }
+
       addItin.itineraries.push(action.newItinerary.itinerary.id)
 
       const addedItinToUserTrip = {
@@ -26,7 +30,7 @@ function userTripReducer(state=defaultState, action) {
       const removeItin = {...removeItinFromUserTrip[action.itinerary.itinerary.user_trip_id]}
 
       removeItin.itineraries = removeItinFromUserTrip[action.itinerary.itinerary.user_trip_id].itineraries.filter(itin => itin !== action.itinerary.itinerary.id)
-  
+
       return {...state, ...removeItin}
     default:
       return state
