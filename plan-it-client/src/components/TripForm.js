@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { addTrip } from '../actions/tripActions'
 import { Form, Button, Input, DatePicker, Alert } from 'antd'
 import { fetchTodos } from '../actions/todoActions'
+import { addUserTrip } from '../actions/userTripActions'
 import { fetchComments } from '../actions/commentActions'
 import { fetchExpenses } from '../actions/expenseActions'
-
+import { addTripAndUserTripIds } from '../actions/userActions'
+import { addTripId } from '../actions/resultActions'
 
 class TripForm extends React.Component {
   state = {
@@ -69,15 +71,15 @@ class TripForm extends React.Component {
           description: this.state.description,
           start_date: this.state.start_date,
           end_date: this.state.end_date,
-          creator_id: this.props.currentUser.id
+          creator_id: this.props.currentUserId
         })
       })
       .then(res => res.json())
       .then(newTrip => {
-        this.props.addTrip(newTrip)
-        this.props.fetchTodos(this.props.currentUser.id)
-        this.props.fetchComments(this.props.currentUser.id)
-        this.props.fetchExpenses(this.props.currentUser.id)
+        this.props.addTrip(newTrip.trip)
+        this.props.addUserTrip(newTrip.user_trip[0])
+        this.props.addTripAndUserTripIds(newTrip.trip.id, newTrip.user_trip[0].id, newTrip.user_trip[0].user_id)
+        this.props.addTripId(newTrip.trip.id)
 
         this.setState({
           title: '',
@@ -121,8 +123,8 @@ class TripForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUserId: state.currentUserId
   }
 }
 
-export default connect(mapStateToProps, { addTrip: addTrip, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses })(TripForm)
+export default connect(mapStateToProps, { addTrip: addTrip, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses, addUserTrip: addUserTrip, addTripAndUserTripIds: addTripAndUserTripIds, addTripId: addTripId })(TripForm)

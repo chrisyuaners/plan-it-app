@@ -10,7 +10,7 @@ class Api::V1::ItinerariesController < ApplicationController
     destination_to = Destination.where(city: params[:cityTo], country: params[:countryTo])[0]
     itinerary_destination_from = ItineraryDestination.create(itinerary_id: itinerary.id, destination_id: destination_from.id, from: true)
     itinerary_destination_to = ItineraryDestination.create(itinerary_id: itinerary.id, destination_id: destination_to.id, from: false)
-    render json: itinerary
+    render json: {itinerary: itinerary, itinerary_destinations: [itinerary_destination_from, itinerary_destination_to]}
   end
 
   def update
@@ -21,8 +21,9 @@ class Api::V1::ItinerariesController < ApplicationController
 
   def destroy
     itinerary = Itinerary.find(params[:id])
+    itinerary_destinations = itinerary.itinerary_destinations.map {|itinDes| itinDes}
     itinerary.destroy
-    render json: itinerary
+    render json: {itinerary: itinerary, itinerary_destinations: itinerary_destinations}
   end
 
   private

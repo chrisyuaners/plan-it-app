@@ -26,11 +26,28 @@ class TripCard extends React.Component {
       })
     })
     .then(res => res.json())
-    .then(response => {
-      console.log(response)
-      // this.props.showDeleteMessage()
-      // this.props.setSelectedTripToNull()
-      // this.props.removeTrip(trip.id)
+    .then(tripObject => {
+      const normalizedTripData = {
+        itineraries: tripObject.itineraries.map(itin => itin.id),
+        itinerary_destinations: tripObject.itinerary_destinations.map(itinDes => itinDes.id),
+        trip: {
+          id: tripObject.trip.id,
+          creator_id: tripObject.trip.creator_id,
+          title: tripObject.trip.title,
+          description: tripObject.trip.description,
+          start_date: tripObject.trip.start_date,
+          end_date: tripObject.trip.end_date,
+          users: tripObject.trip.users.map(user => user.id),
+          user_trips: tripObject.trip.user_trips.map(userTrip => userTrip.id),
+          comments: tripObject.trip.comments.map(comment => comment.id),
+          expenses: tripObject.trip.expenses.map(expense => expense.id),
+          todos: tripObject.trip.todos.map(todo => todo.id)
+        }
+      }
+      
+      this.props.showDeleteMessage()
+      this.props.setSelectedTripToNull()
+      this.props.removeTrip(normalizedTripData)
     })
   }
 
@@ -126,10 +143,12 @@ class TripCard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const trips = state.result.map(result => state.trips[result])
+  const userTrips = state.users[state.currentUserId].user_trips.map(userTrip => state.userTrips[userTrip])
   return {
-    currentUserId: state.currentUser.id,
-    trips: state.trips,
-    userTrips: state.currentUser.user_trips
+    currentUserId: state.currentUserId,
+    trips: trips,
+    userTrips: userTrips
   }
 }
 

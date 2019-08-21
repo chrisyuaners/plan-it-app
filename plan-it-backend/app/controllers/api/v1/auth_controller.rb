@@ -8,4 +8,8 @@ class Api::V1::AuthController < ApplicationController
       render json: {errors: "You dun goofed!"}
     end
   end
+
+  def auto_login
+    render json: session_user
+  end
 end

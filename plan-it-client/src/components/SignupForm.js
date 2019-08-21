@@ -77,7 +77,7 @@ class SignupForm extends React.Component {
           </Form.Item>
         </Form>
         <Link to={"/login"}>
-          <a href="/">or login if you already know what it is</a>
+          or login if you already know what it is
         </Link>
       </div>
     )

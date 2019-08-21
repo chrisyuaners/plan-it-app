@@ -128,7 +128,7 @@ class ItineraryForm extends React.Component {
       })
       .then(res => res.json())
       .then(newItinerary => {
-        this.props.addItinerary(newItinerary)
+        this.props.addItinerary(newItinerary, this.props.currentUserId)
 
         this.setState({
           showModal: false,
@@ -207,10 +207,10 @@ class ItineraryForm extends React.Component {
               </Select>
             </Form.Item>
             <Form.Item label="Departure">
-              <DatePicker showTime name="departure" onChange={this.handleDepartureChange} />
+              <DatePicker showTime defaultValue={''} name="departure" onChange={this.handleDepartureChange} />
             </Form.Item>
             <Form.Item label="Arrival">
-              <DatePicker showTime name="arrival" onChange={this.handleArrivalChange} />
+              <DatePicker showTime defaultValue={''} name="arrival" onChange={this.handleArrivalChange} />
             </Form.Item>
             <Form.Item label="Address">
               <AlgoliaPlaces
@@ -241,8 +241,9 @@ class ItineraryForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user_trips: state.currentUser.user_trips,
-    destinations: state.destinations
+    user_trips: state.users[state.currentUserId].user_trips.map(userTrip => state.userTrips[userTrip]),
+    destinations: state.destinations,
+    currentUserId: state.currentUserId
   }
 }
 

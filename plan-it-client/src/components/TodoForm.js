@@ -56,8 +56,8 @@ class TodoForm extends React.Component {
         })
       })
       .then(res => res.json())
-      .then(todo => {
-        this.props.addTodo(this.props.tripId, todo)
+      .then(response => {
+        this.props.addTodo(response.todo)
 
         this.setState({
           newTodo: ''

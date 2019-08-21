@@ -16,8 +16,8 @@ function TodoListItem(props) {
       })
     })
     .then(res => res.json())
-    .then(todo => {
-      props.removeTodo(props.tripId, todo.id)
+    .then(response => {
+      props.removeTodo(response.todo)
     })
   }
 

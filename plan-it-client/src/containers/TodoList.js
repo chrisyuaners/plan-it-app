@@ -5,14 +5,14 @@ import { connect } from 'react-redux'
 import { List, Card } from 'antd'
 
 function TodoList(props) {
-  const tripTodos = props.todos.filter(todo => todo.tripId === props.selectedTrip)[0]
+  const currentTripTodos = props.trips[props.selectedTrip].todos.map(todo => props.todos[todo])
 
   function renderTodos() {
     return (
-      <Card title="Todos" style={{ width: '130%' }}>
+      <Card title="Todos" style={{ width: '100%' }}>
         <List
           itemLayout="horizontal"
-          dataSource={tripTodos.todos}
+          dataSource={currentTripTodos}
           renderItem={todo => (
             <TodoListItem key={todo.id} todo={todo} tripId={props.selectedTrip} />
           )}
@@ -31,7 +31,8 @@ function TodoList(props) {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos
+    todos: state.todos,
+    trips: state.trips
   }
 }
 

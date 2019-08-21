@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import Profile from '../components/Profile'
+import ProfileEdit from '../components/ProfileEdit'
 import TripContainer from './TripContainer'
 import { Route, Switch } from 'react-router-dom'
 
@@ -19,7 +20,8 @@ class MainContainer extends React.Component {
         <NavBar logout={this.props.logout} />
         <Switch>
           <Route exact path="/home" render={(routerProps) => <TripContainer />} />
-          <Route path="/home/profile" render={(routerProps) => <Profile {...routerProps}/>} />
+          <Route exact path="/home/profile" render={(routerProps) => <Profile {...routerProps}/>} />
+          <Route path="/home/profile/edit" component={ProfileEdit} />
         </Switch>
       </div>
     )

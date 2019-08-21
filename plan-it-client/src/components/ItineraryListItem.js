@@ -5,10 +5,11 @@ import { removeItinerary } from '../actions/itineraryActions'
 import moment from 'moment'
 
 function ItineraryListItem(props) {
-  const flyingFromId = props.itinerary.itinerary_destinations.filter(itin => itin.from === true)[0].destination_id
-  const flyingFrom = props.itinerary.destinations.filter(destination => destination.id === flyingFromId)[0]
-  const flyingToId = props.itinerary.itinerary_destinations.filter(itin => itin.from === false)[0].destination_id
-  const flyingTo = props.itinerary.destinations.filter(destination => destination.id === flyingToId)[0]
+  const currentUserItineraryDestinations = props.userItineraryDestinations.filter(itinDes => itinDes.itinerary_id === props.itinerary.id)
+  const flyingFromId = currentUserItineraryDestinations.filter(itin => itin.from === true)[0].destination_id
+  const flyingFrom = props.destinations.filter(destination => destination.id === flyingFromId)[0]
+  const flyingToId = currentUserItineraryDestinations.filter(itin => itin.from === false)[0].destination_id
+  const flyingTo = props.destinations.filter(destination => destination.id === flyingToId)[0]
 
   function handleClick() {
     fetch(`http://localhost:3000/api/v1/itineraries/${props.itinerary.id}`, {
@@ -22,8 +23,8 @@ function ItineraryListItem(props) {
       })
     })
     .then(res => res.json())
-    .then(itinerary => {
-      props.removeItinerary(itinerary.id)
+    .then(removeItinerary => {
+      props.removeItinerary(removeItinerary, props.currentUserId)
     })
   }
 
@@ -38,4 +39,14 @@ function ItineraryListItem(props) {
   )
 }
 
-export default connect(null, { removeItinerary: removeItinerary })(ItineraryListItem)
+const mapStateToProps = (state) => {
+  const userItineraryDestinations = state.users[state.currentUserId].itinerary_destinations.map(itinDes => state.itineraryDestinations[itinDes])
+
+  return {
+    destinations: state.destinations.destinations,
+    userItineraryDestinations: userItineraryDestinations,
+    currentUserId: state.currentUserId
+  }
+}
+
+export default connect(mapStateToProps, { removeItinerary: removeItinerary })(ItineraryListItem)

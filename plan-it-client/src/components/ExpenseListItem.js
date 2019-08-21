@@ -22,8 +22,8 @@ function ExpenseListItem(props) {
       })
     })
     .then(res => res.json())
-    .then(expense => {
-      props.removeExpense(props.tripId, expense.id)
+    .then(response => {
+      props.removeExpense(response.expense)
     })
   }
 
