@@ -14,15 +14,22 @@ function fetchComments(userId) {
   }
 }
 
-function addComment(tripId, newComment) {
+function addComment(newComment) {
   return {
     type: 'ADD_COMMENT',
-    tripId: tripId,
     newComment: newComment
+  }
+}
+
+function removeComment(comment) {
+  return {
+    type: 'REMOVE_COMMENT',
+    comment: comment
   }
 }
 
 export {
   fetchComments,
-  addComment
+  addComment,
+  removeComment
 }

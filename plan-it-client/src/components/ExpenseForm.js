@@ -85,10 +85,11 @@ class ExpenseForm extends React.Component {
         })
       })
       .then(res => res.json())
-      .then(newExpense => {
-        this.props.addExpense(this.props.tripId, newExpense)
+      .then(response => {
+        this.props.addExpense(response.expense)
 
         this.setState({
+          showModal: false,
           item: '',
           cost: null,
           count: null

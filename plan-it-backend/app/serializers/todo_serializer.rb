@@ -1,4 +1,4 @@
 class TodoSerializer < ActiveModel::Serializer
-  attributes :id, :content
+  attributes :id, :content, :trip_id
   belongs_to :trip
 end

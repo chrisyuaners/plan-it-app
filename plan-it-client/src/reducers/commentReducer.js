@@ -16,21 +16,13 @@ function commentReducer(state=defaultState, action) {
 
       return commentsForRemoval
     case 'ADD_COMMENT':
-      const tripComments = [...state].filter(tripComment => tripComment.tripId === action.tripId)[0]
-
-      tripComments.comments.push(action.newComment)
-
-      const updatedTripComments = [...state].map(tripComment => {
-        if (tripComment.tripId !== action.tripId) {
-          return tripComment
-        }
-
-        return {
-          ...tripComment,
-          ...tripComments
-        }
-      })
-      return updatedTripComments
+      const tripComments = {...state}
+      tripComments[action.newComment.id] = action.newComment
+      return tripComments
+    case 'REMOVE_COMMENT':
+      const removeFromComments = {...state}
+      delete removeFromComments[action.comment.id]
+      return removeFromComments
     default:
       return state
   }

@@ -8,10 +8,6 @@ import LoginForm from './components/LoginForm'
 import MainContainer from './containers/MainContainer'
 import { fetchTrips } from './actions/tripActions'
 import { setUser } from './actions/userActions'
-import { fetchItineraries } from './actions/itineraryActions'
-import { fetchTodos } from './actions/todoActions'
-import { fetchComments } from './actions/commentActions'
-import { fetchExpenses } from './actions/expenseActions'
 import { fetchDestinations } from './actions/destinationActions'
 
 class App extends React.Component {
@@ -22,7 +18,7 @@ class App extends React.Component {
   //   .then(res => res.json())
   //   .then(console.log)
   // }
-  
+
   state = {
     currentUserId: null,
     loginPage: {
@@ -80,4 +76,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {fetchTrips: fetchTrips, fetchItineraries: fetchItineraries, setUser: setUser, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses, fetchDestinations: fetchDestinations})(App)
+export default connect(null, {fetchTrips: fetchTrips, setUser: setUser, fetchDestinations: fetchDestinations})(App)

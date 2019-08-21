@@ -6,7 +6,7 @@ class Api::V1::CommentsController < ApplicationController
 
   def create
     comment = Comment.create(comment_params)
-    render json: comment
+    render json: {comment: comment}
   end
 
   def update
@@ -18,6 +18,7 @@ class Api::V1::CommentsController < ApplicationController
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy
+    render json: {comment: comment}
   end
 
   private

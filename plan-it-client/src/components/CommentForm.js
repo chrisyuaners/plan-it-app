@@ -57,8 +57,9 @@ class CommentForm extends React.Component {
         })
       })
       .then(res => res.json())
-      .then(comment => {
-        this.props.addComment(this.props.tripId, comment)
+      .then(response => {
+        debugger
+        this.props.addComment(response.comment)
 
         this.setState({
           newComment: ''

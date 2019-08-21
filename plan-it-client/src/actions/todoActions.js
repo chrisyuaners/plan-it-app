@@ -14,19 +14,17 @@ function fetchTodos(userId) {
   }
 }
 
-function addTodo(tripId, newTodo) {
+function addTodo(newTodo) {
   return {
     type: 'ADD_TODO',
-    tripId: tripId,
     newTodo: newTodo
   }
 }
 
-function removeTodo(tripId, todoId) {
+function removeTodo(todo) {
   return {
     type: 'REMOVE_TODO',
-    tripId: tripId,
-    todoId: todoId
+    todo: todo
   }
 }
 

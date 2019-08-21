@@ -14,19 +14,17 @@ function fetchExpenses(userId) {
   }
 }
 
-function addExpense(tripId, newExpense) {
+function addExpense(newExpense) {
   return {
     type: 'ADD_EXPENSE',
-    tripId: tripId,
     newExpense: newExpense
   }
 }
 
-function removeExpense(tripId, expenseId) {
+function removeExpense(expense) {
   return {
     type: 'REMOVE_EXPENSE',
-    tripId: tripId,
-    expenseId: expenseId
+    expense: expense
   }
 }
 
