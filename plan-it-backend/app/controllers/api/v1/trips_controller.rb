@@ -1,7 +1,6 @@
 class Api::V1::TripsController < ApplicationController
   def index
-    trips = Trip.all
-    render json: trips
+    render json: session_user.trips
   end
 
   def show
@@ -25,10 +24,40 @@ class Api::V1::TripsController < ApplicationController
 
   def destroy
     trip = Trip.find(params[:id])
-    itineraries = Itinerary.select {|itin| itin.user_trip_id == params[:userTripId]}
-    itineraries.each {|itin| itin.destroy}
+
+    itins = trip.user_trips.map {|user_trip| user_trip.itineraries }.flatten
+    itins_destinations = itins.map {|itin| itin.itinerary_destinations }.flatten
+    user_trips = trip.user_trips.map {|user_trip| user_trip}
+    users = trip.users.map {|user| user}
+    comments = trip.comments.map {|comment| comment}
+    expenses = trip.expenses.map {|expense| expense}
+    todos = trip.todos.map {|todo| todo}
+
+    tripData = {
+      id: trip.id,
+      creator_id: trip.creator_id,
+      description: trip.description,
+      end_date: trip.end_date,
+      start_date: trip.start_date,
+      title: trip.title,
+      user_trips: user_trips,
+      users: users,
+      comments: comments,
+      expenses: expenses,
+      todos: todos
+    }
+
+    objects_to_delete = {
+      trip: tripData,
+      itineraries: itins,
+      itinerary_destinations: itins_destinations
+    }
+
+    itins.each {|itin| itin.destroy}
+    itins_destinations.each {|itinDes| itinDes.destroy}
     trip.destroy
-    render json: trip
+
+    render json: objects_to_delete
   end
 
   private

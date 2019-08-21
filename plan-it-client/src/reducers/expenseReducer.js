@@ -8,6 +8,13 @@ function expenseReducer(state=defaultState, action) {
         expenseData = {}
       }
       return expenseData
+    case 'REMOVE_TRIP':
+      const expensesToDelete = action.tripObject.trip.expenses
+      const expensesForRemoval = {...state}
+
+      expensesToDelete.map(expense => delete expensesForRemoval[expense])
+
+      return expensesForRemoval
     case 'ADD_EXPENSE':
       const addToTripExpenses = [...state].filter(tripExpense => tripExpense.tripId === action.tripId)[0]
 

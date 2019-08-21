@@ -8,6 +8,13 @@ function todoReducer(state=defaultState, action) {
       todoData = {}
     }
     return todoData
+    case 'REMOVE_TRIP':
+      const todosToDelete = action.tripObject.todos || []
+      const todosForRemoval = {...state}
+
+      todosToDelete.map(todo => delete todosForRemoval[todo])
+
+      return todosForRemoval
     case 'ADD_TODO':
       const addToTripTodos = [...state].filter(tripTodo => tripTodo.tripId === action.tripId)[0]
 

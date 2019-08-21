@@ -26,10 +26,28 @@ class TripCard extends React.Component {
       })
     })
     .then(res => res.json())
-    .then(trip => {
+    .then(tripObject => {
+      const normalizedTripData = {
+        itineraries: tripObject.itineraries.map(itin => itin.id),
+        itinerary_destinations: tripObject.itinerary_destinations.map(itinDes => itinDes.id),
+        trip: {
+          id: tripObject.trip.id,
+          creator_id: tripObject.trip.creator_id,
+          title: tripObject.trip.title,
+          description: tripObject.trip.description,
+          start_date: tripObject.trip.start_date,
+          end_date: tripObject.trip.end_date,
+          users: tripObject.trip.users.map(user => user.id),
+          user_trips: tripObject.trip.user_trips.map(userTrip => userTrip.id),
+          comments: tripObject.trip.comments.map(comment => comment.id),
+          expenses: tripObject.trip.expenses.map(expense => expense.id),
+          todos: tripObject.trip.todos.map(todo => todo.id)
+        }
+      }
+      
       this.props.showDeleteMessage()
       this.props.setSelectedTripToNull()
-      this.props.removeTrip(trip.id)
+      this.props.removeTrip(normalizedTripData)
     })
   }
 

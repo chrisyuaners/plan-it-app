@@ -8,6 +8,13 @@ function commentReducer(state=defaultState, action) {
         commentData = {}
       }
       return commentData
+    case 'REMOVE_TRIP':
+      const commentsToDelete = action.tripObject.trip.comments
+      const commentsForRemoval = {...state}
+
+      commentsToDelete.map(comment => delete commentsForRemoval[comment])
+
+      return commentsForRemoval
     case 'ADD_COMMENT':
       const tripComments = [...state].filter(tripComment => tripComment.tripId === action.tripId)[0]
 

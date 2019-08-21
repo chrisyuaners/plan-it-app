@@ -13,7 +13,18 @@ function tripReducer(state = defaultState, action) {
       const normalizedTrip = {...action.newTrip, users: [tripCreatorId]}
       return {...state, [action.newTrip.id]: normalizedTrip}
     case 'REMOVE_TRIP':
-      return [...state].filter(trip => trip.id !== action.tripId)
+      const removeTrips = {...state}
+
+      delete removeTrips[action.tripObject.trip.id]
+      console.log(removeTrips)
+      // const newTrips = {}
+      // for (let key in removeTrips){
+      //   if ([key]){
+      //     newTrips[key] = state[key]
+      //   }
+      // }
+      // console.log(newTrips)
+      return removeTrips
     case 'EDIT_TRIP':
       const updatedTrips = [...state].map(trip => {
         if (trip.id === action.updatedTrip.id) {

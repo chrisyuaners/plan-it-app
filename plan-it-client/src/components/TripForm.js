@@ -6,7 +6,8 @@ import { fetchTodos } from '../actions/todoActions'
 import { addUserTrip } from '../actions/userTripActions'
 import { fetchComments } from '../actions/commentActions'
 import { fetchExpenses } from '../actions/expenseActions'
-
+import { addTripAndUserTripIds } from '../actions/userActions'
+import { addTripId } from '../actions/resultActions'
 
 class TripForm extends React.Component {
   state = {
@@ -75,10 +76,10 @@ class TripForm extends React.Component {
       })
       .then(res => res.json())
       .then(newTrip => {
-        debugger
-        console.log(newTrip)
         this.props.addTrip(newTrip.trip)
-        // this.props.addUserTrip(newTrip.user_trip)
+        this.props.addUserTrip(newTrip.user_trip[0])
+        this.props.addTripAndUserTripIds(newTrip.trip.id, newTrip.user_trip[0].id, newTrip.user_trip[0].user_id)
+        this.props.addTripId(newTrip.trip.id)
 
         this.setState({
           title: '',
@@ -126,4 +127,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { addTrip: addTrip, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses, addUserTrip: addUserTrip })(TripForm)
+export default connect(mapStateToProps, { addTrip: addTrip, fetchTodos: fetchTodos, fetchComments: fetchComments, fetchExpenses: fetchExpenses, addUserTrip: addUserTrip, addTripAndUserTripIds: addTripAndUserTripIds, addTripId: addTripId })(TripForm)

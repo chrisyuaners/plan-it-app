@@ -9,8 +9,7 @@ function userTripReducer(state=defaultState, action) {
       }
       return userTripData
     case 'ADD_USER_TRIP':
-      debugger
-      return {...state, [action.user_trip.id]: action.user_trip}
+      return {...state, [action.userTrip.id]: action.userTrip}
     default:
       return state
   }

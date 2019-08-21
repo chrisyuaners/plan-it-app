@@ -5,6 +5,16 @@ function setUser(userId) {
   }
 }
 
+function addTripAndUserTripIds(tripId, userTripId, userId) {
+  return {
+    type: 'ADD_TRIP_AND_USERTRIP_IDS',
+    tripId: tripId,
+    userTripId: userTripId,
+    userId: userId
+  }
+}
+
 export {
-  setUser
+  setUser,
+  addTripAndUserTripIds
 }

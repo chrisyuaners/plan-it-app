@@ -15,6 +15,14 @@ import { fetchExpenses } from './actions/expenseActions'
 import { fetchDestinations } from './actions/destinationActions'
 
 class App extends React.Component {
+  // componentDidMount(){
+  //   fetch("http://localhost:3000/api/v1/auto_login", {
+  //     headers: {Authorization: localStorage.user_id}
+  //   })
+  //   .then(res => res.json())
+  //   .then(console.log)
+  // }
+  
   state = {
     currentUserId: null,
     loginPage: {
@@ -29,6 +37,7 @@ class App extends React.Component {
     }
   }
 
+  //refactor for actual auto login
   autoLoginUser = (user_id) => {
     this.setState({
       currentUserId: user_id

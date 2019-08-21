@@ -2,13 +2,19 @@ import { normalize, schema } from 'normalizr'
 
 function fetchTrips(userId) {
   return function(dispatch) {
-    fetch(`http://localhost:3000/api/v1/trips`)
+    fetch(`http://localhost:3000/api/v1/trips`, {
+      headers: {
+        "Authorization": localStorage.user_id
+      }
+    })
     .then(res => res.json())
     .then(trips => {
       const tripData = trips
       const itinerary_destination = new schema.Entity('itinerary_destinations')
       const itinerary = new schema.Entity('itineraries')
-      const user_trip = new schema.Entity('user_trips')
+      const user_trip = new schema.Entity('user_trips', {
+        itineraries: [itinerary]
+      })
       const todo = new schema.Entity('todos')
       const expense = new schema.Entity('expenses')
       const comment = new schema.Entity('comments')
@@ -23,11 +29,12 @@ function fetchTrips(userId) {
         users: [user],
         todos: [todo],
         expenses: [expense],
-        comments: [comment]
+        comments: [comment],
+        user_trips: [user_trip]
       })
       const tripList = [trip]
       const normalizedData = normalize(tripData, tripList)
-      dispatch({type: 'FETCH_TRIPS', trips: trips, normalizedData: {...normalizedData}})
+      dispatch({type: 'FETCH_TRIPS', normalizedData: normalizedData})
     })
   }
 }
@@ -39,10 +46,10 @@ function addTrip(newTrip) {
   }
 }
 
-function removeTrip(tripId) {
+function removeTrip(tripObject) {
   return {
     type: 'REMOVE_TRIP',
-    tripId: tripId
+    tripObject: tripObject
   }
 }
 

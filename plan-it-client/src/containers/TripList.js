@@ -24,7 +24,13 @@ function TripList(props) {
 }
 
 const mapStateToProps = (state) => {
+
   const trips = state.result.map(result => state.trips[result])
+  // state.result.forEach(result => {
+  //   if(state.trips[result]){
+  //     trips.push(state.trips[result])
+  //   }
+  // })
   return {
     trips: trips
   }

@@ -8,6 +8,13 @@ function itineraryDestinationReducer(state=defaultState, action) {
       itineraryDestinationData = {}
     }
     return itineraryDestinationData
+    case 'REMOVE_TRIP':
+      const itinDesToDelete = action.tripObject.itinerary_destinations
+      const itinDesForRemoval = {...state}
+
+      itinDesToDelete.map(itinDes => delete itinDesForRemoval[itinDes])
+
+      return itinDesForRemoval
     default:
       return state
   }
