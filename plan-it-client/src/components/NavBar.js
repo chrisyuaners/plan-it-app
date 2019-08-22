@@ -24,6 +24,12 @@ class NavBar extends React.Component {
             Home
           </Link>
         </Menu.Item>
+        <Menu.Item key="destinations">
+          <Link to={"/home/destinations"}>
+            <Icon type="rocket" />
+            Destinations
+          </Link>
+        </Menu.Item>
         <Menu.Item key="user">
           <Link to={"/home/profile"}>
             <Icon type="user" />

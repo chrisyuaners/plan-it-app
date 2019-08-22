@@ -1,5 +1,9 @@
 @import '~antd/dist/antd.css';
 
+.mapboxgl-canvas {
+  position: relative !important;
+}
+
 .App {
   text-align: center;
 }
