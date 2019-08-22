@@ -1,13 +1,29 @@
-const defaultState = null
+const defaultState = {}
 
 function userReducer(state=defaultState, action) {
   switch(action.type) {
-    case 'FETCH_TRIPS':
-      let userData = action.normalizedData.entities.users
-      if (!userData) {
-        userData = {}
+    case 'FETCH_USERS':
+      let usersData = action.normalizedData.entities.users
+
+      return usersData
+    // case 'FETCH_TRIPS':
+    //   let userData = action.normalizedData.entities.users
+    //   if (!userData) {
+    //     userData = {}
+    //   }
+    //   return userData
+    case 'EDIT_USER':
+      const findUserToUpdate = {...state}
+      const userToUpdate = {...findUserToUpdate[action.user.id]}
+
+      userToUpdate.full_name = action.user.fullName
+      userToUpdate.email = action.user.email
+
+      const updatedUser = {
+        [userToUpdate.id]: userToUpdate
       }
-      return userData
+    
+      return {...state, ...updatedUser}
     case 'REMOVE_TRIP':
       const usersForModify = {...state}
       const modifyUsers = action.tripObject.trip.users.map(user => usersForModify[user])
@@ -59,7 +75,7 @@ function userReducer(state=defaultState, action) {
       const removedItinFromUser = {
         [removeItin.id]: removeItin
       }
-    
+
       return {...state, ...removedItinFromUser}
     default:
       return state

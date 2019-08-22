@@ -44,7 +44,7 @@ class TripCard extends React.Component {
           todos: tripObject.trip.todos.map(todo => todo.id)
         }
       }
-      
+
       this.props.showDeleteMessage()
       this.props.setSelectedTripToNull()
       this.props.removeTrip(normalizedTripData)
@@ -86,8 +86,13 @@ class TripCard extends React.Component {
     })
     .then(res => res.json())
     .then(updatedTrip => {
-      this.props.editTrip(updatedTrip)
+      const updatedData = {
+        id: updatedTrip.id,
+        title: updatedTrip.title,
+        description: updatedTrip.description
+      }
 
+      this.props.editTrip(updatedData)
       this.hideModal()
     })
   }

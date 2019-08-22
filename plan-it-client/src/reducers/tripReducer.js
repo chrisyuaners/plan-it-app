@@ -25,14 +25,17 @@ function tripReducer(state = defaultState, action) {
       // console.log(newTrips)
       return removeTrips
     case 'EDIT_TRIP':
-      const updatedTrips = [...state].map(trip => {
-        if (trip.id === action.updatedTrip.id) {
-          return action.updatedTrip
-        } else {
-          return trip
-        }
-      })
-      return updatedTrips
+      const findTripToUpdate = {...state}
+      const tripToUpdate = {...findTripToUpdate[action.updatedTrip.id]}
+
+      tripToUpdate.title = action.updatedTrip.title
+      tripToUpdate.description = action.updatedTrip.description
+
+      const updatedTrip = {
+        [tripToUpdate.id]: tripToUpdate
+      }
+      
+      return {...state, ...updatedTrip}
     case 'ADD_COMMENT':
       const findTripToAddComment = {...state}
       const addCommentToTrip = {...findTripToAddComment[action.newComment.trip_id]}

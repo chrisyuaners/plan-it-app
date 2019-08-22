@@ -8,8 +8,46 @@ class SignupForm extends React.Component {
     email: '',
     username: '',
     password: '',
-    passwordConfirmation: '',
-    avatar: '',
+    passwordConfirmation: ''
+  }
+
+  randomAvatar = () => {
+    const avatars = [
+      "001-stegosaurus.svg",
+      "002-dinosaur.svg",
+      "003-dinosaur.svg",
+      "004-diplodocus.svg",
+      "005-pterodactyl.svg",
+      "006-diplodocus.svg",
+      "007-dinosaur.svg",
+      "008-diplodocus.svg",
+      "009-stegosaurus.svg",
+      "010-stegosaurus.svg",
+      "011-dinosaur.svg",
+      "012-diplodocus.svg",
+      "013-pterodactyl.svg",
+      "014-dinosaur.svg",
+      "015-pterodactyl.svg",
+      "016-dinosaur.svg",
+      "017-dinosaur.svg",
+      "018-dinosaur.svg",
+      "019-dinosaur.svg",
+      "020-pterodactyl.svg",
+      "021-dinosaur.svg",
+      "022-stegosaurus.svg",
+      "023-tyrannosaurus rex.svg",
+      "024-dinosaur.svg",
+      "025-pterodactyl.svg",
+      "026-triceratops.svg",
+      "027-diplodocus.svg",
+      "028-dinosaur.svg",
+      "029-dinosaur.svg",
+      "030-dinosaur.svg"
+    ]
+
+    const random = avatars[Math.floor(Math.random() * avatars.length)]
+
+    return random
   }
 
   handleChange = (event) => {
@@ -20,6 +58,7 @@ class SignupForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    const avatar = this.randomAvatar()
 
     if (this.state.password === this.state.passwordConfirmation) {
       fetch('http://localhost:3000/api/v1/signup', {
@@ -32,7 +71,8 @@ class SignupForm extends React.Component {
           full_name: this.state.fullName,
           email: this.state.email,
           username: this.state.username,
-          password: this.state.password
+          password: this.state.password,
+          avatar: avatar
         })
       })
       .then(res => res.json())

@@ -7,7 +7,7 @@ import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
 import MainContainer from './containers/MainContainer'
 import { fetchTrips } from './actions/tripActions'
-import { setUser } from './actions/userActions'
+import { setUser, fetchUsers } from './actions/userActions'
 import { fetchDestinations } from './actions/destinationActions'
 
 class App extends React.Component {
@@ -36,9 +36,10 @@ class App extends React.Component {
   //refactor for actual auto login
   autoLoginUser = (user_id) => {
     this.setState({
-      currentUserId: user_id
+      currentUserId: parseInt(user_id)
     }, () => {
       this.props.setUser(this.state.currentUserId)
+      this.props.fetchUsers()
       this.props.fetchTrips(this.state.currentUserId)
       this.props.fetchDestinations()
     })
@@ -76,4 +77,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {fetchTrips: fetchTrips, setUser: setUser, fetchDestinations: fetchDestinations})(App)
+export default connect(null, {fetchTrips: fetchTrips, setUser: setUser, fetchUsers: fetchUsers, fetchDestinations: fetchDestinations})(App)

@@ -28,8 +28,7 @@ class MainContainer extends React.Component {
             const foundDestination = this.props.destinations.find(destination => destination.id === parseInt(routerProps.match.params.id))
             return (
               <DestinationShowPage key={foundDestination.id} destination={foundDestination} routerProps={routerProps} />
-            )
-          }} />
+            )}} />
           <Route exact path="/home/profile" render={(routerProps) => <Profile {...routerProps}/>} />
           <Route path="/home/profile/edit" component={ProfileEdit} />
         </Switch>

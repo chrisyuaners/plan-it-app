@@ -5,7 +5,7 @@ const API_KEY ='pk.eyJ1IjoiY2hyaXN5dWFuNyIsImEiOiJjanpsczF1ZnMwMzRyM21sYzZ3YXNlb
 class Map extends React.Component {
   state = {
     viewport: {
-      width: 500,
+      width: 700,
       height: 500,
       latitude: 37.7577,
       longitude: -122.4376,

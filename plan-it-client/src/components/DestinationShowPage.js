@@ -4,14 +4,14 @@ import Map from './Map'
 function DestinationShowPage(props) {
   return (
     <div>
-      <div>
+      <div style={{ fontSize: '50px' }}>
         <h1>{props.destination.city}</h1>
-        <h2>{props.destination.country}</h2>
+        <h3>{props.destination.country}</h3>
       </div>
-      <div>
-        <p>{props.destination.description}</p>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <p style={{ maxWidth: '30%', padding: '5% 1%' }}>{props.destination.description}</p>
+        <Map destination={`${props.destination.city} ${props.destination.country}`}/>
       </div>
-      <Map destination={`${props.destination.city} ${props.destination.country}`}/>
     </div>
   )
 }
