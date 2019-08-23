@@ -6,7 +6,7 @@ const { SubMenu } = Menu;
 
 class NavBar extends React.Component {
   state = {
-    current: 'home',
+    current: '',
   };
 
   handleClick = e => {

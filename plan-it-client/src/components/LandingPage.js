@@ -5,7 +5,7 @@ import LoginForm from './LoginForm'
 
 function LandingPage(props) {
   return (
-    <div style={{ backgroundColor: '#5d9cec', minHeight: '100vh'  }}>
+    <div style={{ backgroundColor: '#5d9cec', minHeight: '100vh', paddingBottom: '2%'  }}>
       <LoginForm setUser={props.setUser} loginProps={props.loginProps} />
       <img src="./plan-it.jpg" alt=""/>
       <div>

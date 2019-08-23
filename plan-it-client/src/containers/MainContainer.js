@@ -25,7 +25,8 @@ class MainContainer extends React.Component {
           <Route exact path="/home" render={(routerProps) => <TripContainer />} />
           <Route exact path="/home/destinations" component={DestinationList} />
           <Route path="/home/destinations/:id" render={(routerProps) => {
-            const foundDestination = this.props.destinations.find(destination => destination.id === parseInt(routerProps.match.params.id))
+            const foundDestination = this.props.destinations.find(destination => destination.id === parseInt(routerProps.match.params.id)) || {}
+
             return (
               <DestinationShowPage key={foundDestination.id} destination={foundDestination} routerProps={routerProps} />
             )}} />
@@ -38,8 +39,9 @@ class MainContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const destinations = state.destinations.destinations || []
   return {
-    destinations: state.destinations.destinations
+    destinations: destinations
   }
 }
 

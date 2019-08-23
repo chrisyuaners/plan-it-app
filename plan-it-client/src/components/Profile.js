@@ -4,7 +4,7 @@ import { Avatar } from 'antd'
 
 function Profile(props) {
   return (
-    <div>
+    <div style={{ padding: '5%' }}>
       <div>
         <Avatar size={86} src={`/icons/${props.currentUser.avatar}`} />
         <h1>{props.currentUser.full_name}</h1>
@@ -19,7 +19,7 @@ function Profile(props) {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.users[state.currentUserId]
+    currentUser: state.users[state.currentUserId] || {}
   }
 }
 
