@@ -17,7 +17,7 @@ function TodoList(props) {
             <TodoListItem key={todo.id} todo={todo} tripId={props.selectedTrip} />
           )}
         />
-        <TodoForm tripId={props.selectedTrip} />
+        <TodoForm key={props.selectedTrip} tripId={props.selectedTrip} />
       </Card>
     )
   }

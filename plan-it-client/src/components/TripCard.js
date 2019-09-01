@@ -12,7 +12,6 @@ class TripCard extends React.Component {
 
   removeTrip = () => {
     const userTripId = this.props.userTrips.filter(userTrip => userTrip.trip_id === this.props.selectedTrip)[0].id
-    console.log(userTripId)
 
     fetch(`http://localhost:3000/api/v1/trips/${this.props.selectedTrip}`, {
       method: "DELETE",
@@ -94,6 +93,13 @@ class TripCard extends React.Component {
 
       this.props.editTrip(updatedData)
       this.hideModal()
+    })
+  }
+
+  setEditFields = (trip) => {
+    this.setState({
+      title: trip.title,
+      description: trip.description
     })
   }
 

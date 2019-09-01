@@ -25,7 +25,7 @@ function ExpenseList(props) {
           )}
         />
         {currentTripExpenses.length > 0 ? <p>Total: {numberFormat(currentTripExpenses.map(expense => expense.cost * expense.count).reduce(reducer))}</p> : null}
-        <ExpenseForm tripId={props.selectedTrip} />
+        <ExpenseForm key={props.selectedTrip} tripId={props.selectedTrip} />
       </Card>
     )
   }

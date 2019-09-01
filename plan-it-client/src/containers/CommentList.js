@@ -16,7 +16,7 @@ function CommentList(props) {
           <CommentListItem key={comment.id} comment={comment} />
         )}
       />
-      <CommentForm tripId={props.selectedTrip} />
+      <CommentForm key={props.selectedTrip} tripId={props.selectedTrip} />
     </Card>
   )
 }
