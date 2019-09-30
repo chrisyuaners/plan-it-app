@@ -16,7 +16,7 @@ function ExpenseList(props) {
 
   function renderExpenses() {
     return (
-      <Card title="Expenses" style={{ width: '150%' }}>
+      <Card title="Expenses" style={{ width: '100%' }}>
         <List
           itemLayout="horizontal"
           dataSource={currentTripExpenses}

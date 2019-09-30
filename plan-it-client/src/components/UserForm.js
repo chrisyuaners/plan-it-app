@@ -1,11 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Button, Modal } from 'antd'
+import { Form, Button, Modal, Alert } from 'antd'
 
 class UserForm extends React.Component {
   state = {
     usersToAdd: [],
-    userSelection: []
+    userSelection: [],
+    showError: false,
+    showModal: false
   }
 
   componentDidMount() {
@@ -27,24 +29,83 @@ class UserForm extends React.Component {
 
   hideModal = () => {
     this.setState({
+      usersToAdd: [],
       showModal: false,
     })
+  }
+
+  showError = () => {
+    this.setState({
+      showError: true
+    })
+  }
+
+  hideError = () => {
+    this.setState({
+      showError: false
+    })
+  }
+
+  renderValidateStatus = () => {
+    return (
+      <div>
+        <Alert message="Please fill in all fields" type="error" showIcon/>
+        <Button onClick={this.hideError}>
+          Okay boss
+        </Button>
+      </div>
+    )
   }
 
   renderUsers = () => {
     return this.state.userSelection.map(user => {
       return (
-        <div key={user.id} onClick={(event) => this.addUser(event, user)}>
-          <h4>{user.full_name}</h4>
+        <div key={user.id} className="user-buttons">
+          <Button
+            onClick={(event) => {this.addUser(event, user);}}
+            className={this.state.usersToAdd.includes(user.id) ? "user-selected" : null}
+          >
+            {user.full_name}
+          </Button>
         </div>
       )
     })
   }
 
-  addUser = (event, user) => {
-    console.log(event.target)
-    this.setState({
-      usersToAdd: [...this.state.usersToAdd, user]
+  addUser = (event, selectedUser) => {
+    if (this.state.usersToAdd.includes(selectedUser.id)) {
+      this.setState({
+        usersToAdd: this.state.usersToAdd.filter(user => user !== selectedUser.id)
+      })
+    } else {
+      this.setState({
+        usersToAdd: [...this.state.usersToAdd, selectedUser.id]
+      })
+    }
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    fetch('http://localhost:3000/api/v1/add_users', {
+      method: "PATCH",
+      headers: {
+        "Content-Type": 'application/json',
+        "Accepts": 'application/json'
+      },
+      body: JSON.stringify({
+        id: this.props.selectedTrip,
+        usersToAdd: this.state.usersToAdd
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log(response)
+
+      this.setState({
+        showModal: false,
+        usersToAdd: [],
+      })
     })
   }
 
@@ -68,7 +129,9 @@ class UserForm extends React.Component {
         >
         <Form onSubmit={this.handleSubmit}>
           {this.state.showError ? this.renderValidateStatus() : null}
-          {this.renderUsers()}
+          <Form.Item label="Select Friends for Trip">
+            {this.renderUsers()}
+          </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit

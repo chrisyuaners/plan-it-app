@@ -1,5 +1,17 @@
 @import '~antd/dist/antd.css';
 
+/* UserForm Styles START */
+
+.user-buttons {
+  padding: 1% 0%;
+}
+
+.user-selected {
+  border: 2px solid rgb(92,168,248);
+}
+
+/* UserForm Styles END */
+
 .mapboxgl-canvas {
   position: relative !important;
 }

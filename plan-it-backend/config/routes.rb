@@ -11,9 +11,10 @@ Rails.application.routes.draw do
       resources :itineraries
       resources :destinations
       resources :itinerary_destinations
-      
+
       post "/signup", to: "users#create"
       post "/login", to: "auth#login"
+      patch "/add_users", to: "trips#add_users"
 
       get '/auto_login', to: "auth#auto_login"
     end

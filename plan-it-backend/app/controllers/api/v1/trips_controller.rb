@@ -60,6 +60,13 @@ class Api::V1::TripsController < ApplicationController
     render json: objects_to_delete
   end
 
+  def add_users
+    trip = Trip.find(params[:id])
+    add_users_to_trips = params[:usersToAdd].map {|user| User.find(user)}
+    add_users_to_trips.each {|user| trip.users.push(user)}
+    render json: {tripId: trip.id, newUsers: add_users_to_trips.map {|user| user.id}}
+  end
+
   private
 
   def trip_params

@@ -39,6 +39,9 @@ class ExpenseForm extends React.Component {
   hideModal = () => {
     this.setState({
       showModal: false,
+      item: '',
+      cost: null,
+      count: null
     })
   }
 
@@ -75,7 +78,7 @@ class ExpenseForm extends React.Component {
         method: "POST",
         headers: {
           "Content-Type": 'application/json',
-          "Aceepts": 'application/json'
+          "Accepts": 'application/json'
         },
         body: JSON.stringify({
           item: this.state.item,
