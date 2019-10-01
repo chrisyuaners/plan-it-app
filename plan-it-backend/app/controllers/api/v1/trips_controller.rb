@@ -64,7 +64,9 @@ class Api::V1::TripsController < ApplicationController
     trip = Trip.find(params[:id])
     add_users_to_trips = params[:usersToAdd].map {|user| User.find(user)}
     add_users_to_trips.each {|user| trip.users.push(user)}
-    render json: {tripId: trip.id, newUsers: add_users_to_trips.map {|user| user.id}}
+    new_users = add_users_to_trips.map {|user| user.id}
+    add_user_trips_to_users = new_users.map {|user| UserTrip.where(trip_id: trip.id, user_id: user)[0]}
+    render json: {tripId: trip.id, newUsers: new_users, newUserTrips: add_user_trips_to_users.map {|userTrip| userTrip}}
   end
 
   private

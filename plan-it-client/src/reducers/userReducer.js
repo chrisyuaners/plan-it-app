@@ -22,7 +22,7 @@ function userReducer(state=defaultState, action) {
       const updatedUser = {
         [userToUpdate.id]: userToUpdate
       }
-    
+
       return {...state, ...updatedUser}
     case 'REMOVE_TRIP':
       const usersForModify = {...state}
@@ -48,6 +48,26 @@ function userReducer(state=defaultState, action) {
       users[action.userId].trips.push(action.tripId)
       users[action.userId].user_trips.push(action.userTripId)
       return {...state, [action.userId]: users[action.userId]}
+    case 'ADD_USERS_TO_TRIP':
+      const findUsersToAddTrip = {...state}
+      const usersToAddTrip = action.users.newUsers.map(user => findUsersToAddTrip[user])
+
+      usersToAddTrip.forEach(user => user.trips.push(action.users.tripId))
+      usersToAddTrip.forEach(user => {
+        action.users.newUserTrips.forEach(userTrip => {
+          if (userTrip.user_id === user.id) {
+            user.user_trips.push(userTrip.id)
+          }
+        })
+      })
+
+      const updatedUsersToAddTrip = {}
+
+      usersToAddTrip.forEach(user => {
+        updatedUsersToAddTrip[user.id] = user
+      })
+
+      return {...state, ...updatedUsersToAddTrip}
     case 'ADD_ITINERARY':
       const userToAddItin = {...state}
       const addItin = {...userToAddItin[action.currentUserId]}

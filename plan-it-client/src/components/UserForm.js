@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { addUsersToTrip } from '../actions/tripActions'
 import { Form, Button, Modal, Alert } from 'antd'
 
 class UserForm extends React.Component {
@@ -101,7 +102,8 @@ class UserForm extends React.Component {
     .then(res => res.json())
     .then(response => {
       console.log(response)
-
+      this.props.addUsersToTrip(response)
+      
       this.setState({
         showModal: false,
         usersToAdd: [],
@@ -151,4 +153,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(UserForm)
+export default connect(mapStateToProps, { addUsersToTrip: addUsersToTrip })(UserForm)
