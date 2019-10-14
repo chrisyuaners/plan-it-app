@@ -7,12 +7,22 @@ Make sure you are running the client and backend folders separately.
 
 Client:
 
-Install dependencies - yarn install / npm install
+Install dependencies -
+### `yarn install`
+or
+### `npm install`
 
-Run server - yarn start / npm start
+Run server -
+### `yarn start`
+or
+### `npm start`
 
 Backend:
 
-Install dependencies - bundle install
+Install dependencies -
 
-Run server - rails s
+### `bundle install`
+
+Run server -
+
+### `rails s`
