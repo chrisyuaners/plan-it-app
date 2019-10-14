@@ -1,5 +1,5 @@
 # plan-it-app
-## Flatiron School - Mod 5 Final Project
+Flatiron School - Mod 5 Final Project
 
 A React app with a Rails API that allows users to plan trips with friends or family and to keep track of itineraries, expenses, todos, and comments. Users are also able to view destination pages that provide a short description and an interactive map of a given city. Styled with Ant Design and custom CSS.
 
