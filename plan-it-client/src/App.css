@@ -1,5 +1,14 @@
 @import '~antd/dist/antd.css';
 
+/* Trip Froms Styles START*/
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Trip Forms Styles END */
+
 /* UserForm Styles START */
 
 .user-buttons {

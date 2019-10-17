@@ -34,7 +34,7 @@ function ItineraryListItem(props) {
         title={`${flyingFrom.city} to ${flyingTo.city}`}
         description={`Departure: ${moment(props.itinerary.departure).format('LLL')} - Arrival: ${moment(props.itinerary.arrival).format('LLL')}`}
       />
-      <Button onClick={handleClick} type="danger" icon="close" />
+      {props.editMode ? <Button onClick={handleClick} type="danger" icon="close" /> : null}
     </List.Item>
   )
 }

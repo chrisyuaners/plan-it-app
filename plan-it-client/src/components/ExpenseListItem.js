@@ -33,7 +33,7 @@ function ExpenseListItem(props) {
         title={props.expense.item}
         description={`${numberFormat(props.expense.cost)} x ${props.expense.count}`}
       />
-      <Button onClick={handleClick} type="danger" icon="close" />
+      {props.editMode ? <Button onClick={handleClick} type="danger" icon="close" /> : null}
     </List.Item>
   )
 }

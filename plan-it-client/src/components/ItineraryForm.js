@@ -150,9 +150,21 @@ class ItineraryForm extends React.Component {
 
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>
-          Add
-        </Button>
+        <div className="action-buttons">
+          <Button type="primary" onClick={this.showModal}>
+            Add
+          </Button>
+          {this.props.editMode ?
+            <Button type="primary"
+              onClick={() => this.props.setEditMode(false)}>
+              Done
+            </Button> :
+            <Button type="primary"
+              onClick={() => this.props.setEditMode(true)}>
+              Edit
+            </Button>
+          }
+        </div>
         <Modal
           title="New Itinerary"
           visible={this.state.showModal}
