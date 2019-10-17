@@ -77,9 +77,21 @@ class CommentForm extends React.Component {
           <TextArea rows={2} name="newComment" onChange={this.handleChange} value={this.state.newComment}/>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Post
-          </Button>
+          <div className="action-buttons">
+            <Button type="primary" htmlType="submit">
+              Post
+            </Button>
+            {this.props.editMode ?
+              <Button type="primary"
+                onClick={() => this.props.setEditMode(false)}>
+                Done
+              </Button> :
+              <Button type="primary"
+                onClick={() => this.props.setEditMode(true)}>
+                Edit
+              </Button>
+            }
+          </div>
         </Form.Item>
       </Form>
     )

@@ -26,7 +26,7 @@ function TodoListItem(props) {
       <List.Item.Meta
         description={props.todo.content}
       />
-      <Button onClick={handleClick} type="danger" icon="close" />
+      {props.editMode ? <Button onClick={handleClick} type="danger" icon="close" /> : null}
     </List.Item>
   )
 }

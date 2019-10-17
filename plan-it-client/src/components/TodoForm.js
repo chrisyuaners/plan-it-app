@@ -74,9 +74,21 @@ class TodoForm extends React.Component {
           <Input name="newTodo" onChange={this.handleChange} value={this.state.newTodo}/>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Add
-          </Button>
+          <div className="action-buttons">
+            <Button type="primary" htmlType="submit">
+              Add
+            </Button>
+            {this.props.editMode ?
+              <Button type="primary"
+                onClick={() => this.props.setEditMode(false)}>
+                Done
+              </Button> :
+              <Button type="primary"
+                onClick={() => this.props.setEditMode(true)}>
+                Edit
+              </Button>
+            }
+          </div>
         </Form.Item>
       </Form>
     )

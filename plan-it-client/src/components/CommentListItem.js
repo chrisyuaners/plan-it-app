@@ -30,7 +30,7 @@ function CommentListItem(props) {
         title={author.full_name}
         description={props.comment.content}
       />
-      <Button onClick={handleClick} type="danger" icon="close" />
+      {props.editMode ? <Button onClick={handleClick} type="danger" icon="close" /> : null}
     </List.Item>
   )
 }
